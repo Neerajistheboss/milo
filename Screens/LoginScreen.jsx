@@ -1,0 +1,97 @@
+import React, { useState, useContext,useEffect } from 'react'
+import axios from 'axios'
+import { View } from 'react-native'
+
+
+const LoginScreen = (props) => {
+	
+
+	//scrool to top on page load
+	useEffect(() =>{
+        window.scrollTo(0,0)
+	},[])
+
+	
+	const [mobile, setMobile] = useState('')
+	const [otp, setOtp] = useState('')
+
+	const handleMobileChange = (event) => {
+		setMobile(event.target.value)
+	}
+	const handleOtpChange = (event) => {
+		setOtp(event.target.value)
+	}
+
+	// function googleLogin() {
+	// 	axios
+	// 		.get('https://yuver.herokuapp.com/api/v1/auth/oauth/google')
+	// 		.then(function (response) {
+	// 			console.log(response.data.success)
+	// 			if (!response.data.success) {
+	// 				//do nothing
+	// 			} else {
+	// 				//save token in local storage
+	// 				let token = response.data.token
+	// 				let uid = response.data.userId
+	// 				localStorage.setItem('token', token)
+	// 				localStorage.setItem('uid', uid)
+
+	// 				//         //load homepage
+	// 				auth.login(uid, token)
+	// 				window.history.push('/')
+	// 			}
+	// 		})
+	// }
+
+	return (
+		<View>
+			<View className='container-fluid login'>
+				<View className='row'>
+					<View className=' mx-auto'>
+						<View id='first'>
+							<View className='myform form '>
+								<View className='logo mb-3'>
+									<View className='col-md-12 text-center'>
+										<h6>UserLogin</h6>
+									</View>
+								</View>
+
+								
+
+								<View name='register'>
+									<View className='form-group' style={{ width: '350px' }}>
+										<label htmlFor='exampleInputEmail1'> Mobile No.:</label>
+										<input
+											value={mobile}
+											onChange={handleMobileChange}
+											type='number'
+											name='mobile'
+											className='form-control'
+											id='mobile'
+											aria-describedby='emailHelp'
+											placeholder='Enter Mobile No.' required></input>
+									</View>
+								
+									<View style={{width:'80%',backgroundColor:'#3ad3b2',color:'#FFF',fontSize:'18px',textAlign:'center',margin:"0 auto",padding:'15px 0'}}>
+										Send Otp
+									</View>
+									<View className='form-group' style={{ width: '350px' }}>
+										<p className='text-center'>
+											By signing up you accept our <NavLink to='terms' style={{color:"#00D0CC"}}>Terms Of Use</NavLink>
+										</p>
+									</View>
+									<View className=' text-center login_btn '>
+										
+									</View>
+
+								</View>
+							</View>
+						</View>
+					</View>
+				</View>
+			</View>
+		</View>
+	)
+}
+
+export default LoginScreen
