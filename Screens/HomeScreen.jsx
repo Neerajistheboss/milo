@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, TextInput, View ,StyleSheet} from 'react-native'
+import { Text, TextInput, View ,StyleSheet,SafeAreaView,ScrollView} from 'react-native'
 import HospitalGrid from '../Components/HospitalGrid'
 import SpecialityGrid from '../Components/SpecilaityGrid'
 // import Navbar from '../Components/Navbar'
@@ -30,7 +30,7 @@ function HomeScreen(props) {
 
 
 	return (
-		<View style={styles.container}>
+		<ScrollView style={styles.container}>
 		{/* <Navbar /> */}
 		<View style={{display:"flex",flexDirection:'column',paddingTop:70}}>
 			
@@ -59,7 +59,7 @@ function HomeScreen(props) {
 		</View>
 		
 		</View>
-		</View>
+		</ScrollView>
 	)
 }
 
