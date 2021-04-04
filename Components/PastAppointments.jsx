@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet,View,Text } from 'react-native'
 const PastAppointment=()=>{
-
     return(
         <View style={styles.container}>
         <Text>Past</Text>

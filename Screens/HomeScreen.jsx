@@ -4,11 +4,12 @@ import HospitalGrid from '../Components/HospitalGrid'
 import SpecialityGrid from '../Components/SpecilaityGrid'
 // import Navbar from '../Components/Navbar'
 // import NewDoctorCard from '../Components/NewDoctorCard'
- 
+ import Toolbar from '../Components/Toolbar'
 
 
 
 function HomeScreen(props) {
+	console.log(props)
 
 
 	const [search,setSearch]=useState("")
@@ -30,9 +31,12 @@ function HomeScreen(props) {
 
 
 	return (
-		<ScrollView style={styles.container}>
+		<>
+		<Toolbar navigation={props.navigation}/>
+		<View style={{alignItems:'center'}}>
+		<ScrollView style={styles.container} showsVerticalScrollIndicator={false}  showsHorizontalScrollIndicator={false}>
 		{/* <Navbar /> */}
-		<View style={{display:"flex",flexDirection:'column',paddingTop:70}}>
+		<View style={{display:"flex",flexDirection:'column'}}>
 			
 		<View style={{display:'flex',justifyContent:'center',alignItems:'center',margin:10,marginTop:3,backgroundColor:'#e6fffc',padding:5,borderRadius:10}}>
 			{/* <i class="far fa-search pl-1 pr-3"></i> */}
@@ -50,7 +54,7 @@ function HomeScreen(props) {
 		<Text style={styles.h3}>Find Doctor by Speciality</Text>
 		<Text style={styles.h6}>Book appointments from home</Text>
 		
-		<SpecialityGrid />
+		<SpecialityGrid navigation={props.navigation} />
         </View>
 		<View style={{marginBottom:30}}>
 		<Text style={styles.h3}>Top Hospitals</Text>
@@ -60,6 +64,8 @@ function HomeScreen(props) {
 		
 		</View>
 		</ScrollView>
+		</View>
+		</>
 	)
 }
 

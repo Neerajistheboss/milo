@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 // import { useHistory } from "react-router-dom"
 
 
-const SpecialityGrid=()=>{
+const SpecialityGrid=({navigation})=>{
 const [specialities,setSpecialities]=useState([])
 // let history = useHistory()
 useEffect(()=>{
@@ -21,15 +21,22 @@ useEffect(()=>{
 // 		});
 // 	}
 
+const specialitySelected=(sid)=>{
+    console.log(sid)
+    navigation.navigate('SpecialitySelect',{
+        sid:sid
+    })
+
+}
 
 
 return(
     <View>
         <FlatList numColumns={3} showsVerticalScrollIndicator={false} columnWrapperStyle={styles.row} data={specialities} keyExtractor={item => item.SERVICE_ID} renderItem={({item})=>{
-        return <View   style={styles.specialityCard}>
-            <Image source={{uri:item.SERVICE_IMAGE}} style={{width:50,height:50, borderRadius:50}} alt='service'/>
+        return <TouchableOpacity style={styles.specialityCard} onPress={()=>specialitySelected(item.SERVICE_ID)}>
+            <Image source={{uri:item.SERVICE_IMAGE}} style={{width:50,height:50, borderRadius:50}} alt='service' />
             <Text style={styles.title}>{item.SERVICE_TITLE}</Text>
-        </View>}} />
+        </TouchableOpacity>}} />
         </View>
 )
 }

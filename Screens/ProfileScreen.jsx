@@ -4,7 +4,7 @@ import { StyleSheet, View,Text, Dimensions, Image, Button } from 'react-native'
 const ProfileScreen=()=>{
     return(
         <View style={styles.container}>
-            <View style={{width:'100%',display:'flex',flex:1,justifyContent:'center',}}>
+            <View style={{width:'100%',display:'flex',flex:1,justifyContent:'center',alignItems:'center'}}>
             <Image source={require('../assets/user.png')} style={{width:100,resizeMode:'contain',borderRadius:100}} alt='logo'/>
             </View>
 
@@ -21,6 +21,7 @@ const ProfileScreen=()=>{
                     <Text style={styles.detail}>Edit Profile</Text>
                     <Text style={styles.arrow}>></Text>
                 </View>
+                <View style={{flex:1,justifyContent:'center'}}>
                 <View style={styles.buttonContainer}>
                <Button
                  onPress={()=>{}}
@@ -28,6 +29,7 @@ const ProfileScreen=()=>{
                  color="#ff5e53"
                 />
                </View>
+                </View>
             </View>
         </View>
     )
@@ -48,7 +50,11 @@ const styles=StyleSheet.create({
         alignItems:'center',
         width:Dimensions.get('window').width*0.9,
         paddingVertical:10,
-        elevation:1
+        shadowColor: '#FFF',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 200,
+        elevation: 3,
     },
     imageBox:{
         flex:1,
