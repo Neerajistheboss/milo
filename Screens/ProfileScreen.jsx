@@ -1,7 +1,7 @@
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, View,Text, Dimensions, Image, Button } from 'react-native'
-const ProfileScreen=()=>{
+import { StyleSheet,TouchableOpacity , View,Text, Dimensions, Image, Button } from 'react-native'
+const ProfileScreen=({navigation})=>{
     return(
         <View style={styles.container}>
             <View style={{width:'100%',display:'flex',flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -11,16 +11,16 @@ const ProfileScreen=()=>{
 
             <View style={{...styles.card,paddingHorizontal:'5%'}} >
                 
-                <View style={styles.infoBox}>
+                <TouchableOpacity onPress={()=>{navigation.navigate('Appointments')}}  style={styles.infoBox}>
                     <Ionicons style={styles.icon} name="reader-outline"  size={16} color='gray'/>
                     <Text style={styles.detail}>Appointments</Text>
                     <Text style={styles.arrow}>></Text>
-                </View>
-                <View style={styles.infoBox}>
+                </TouchableOpacity >
+                <TouchableOpacity  style={styles.infoBox}>
                     <Ionicons style={styles.icon} name="create-outline"  size={16} color='gray'/>
                     <Text style={styles.detail}>Edit Profile</Text>
                     <Text style={styles.arrow}>></Text>
-                </View>
+                </TouchableOpacity >
                 <View style={{flex:1,justifyContent:'center'}}>
                 <View style={styles.buttonContainer}>
                <Button

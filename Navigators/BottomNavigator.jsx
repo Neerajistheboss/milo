@@ -8,6 +8,7 @@ import SplashScreen from '../Screens/SplashScreen'
 import HomeScreen from '../Screens/HomeScreen'
 import DrawerNavigator from './DrawerNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import ProfileStackNavigator from './ProfileStackNavigator';
 
 const Tab=createBottomTabNavigator()
 
@@ -40,7 +41,7 @@ return(
     >
       <Tab.Screen name="Home" component={DrawerNavigator} />
       <Tab.Screen name="YuFacts" component={SplashScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileStackNavigator} />
       <Tab.Screen name="Help" component={ContactScreen} />
     </Tab.Navigator>
      </NavigationContainer>

@@ -9,6 +9,7 @@ import ContactScreen from './Screens/ContactScreen';
 import HomeScreen from './Screens/HomeScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import SplashScreen from './Screens/SplashScreen';
+import { AppContextProvider } from './context/auth-context'
 
 export default function App() {
   const [showSplashScreen,setShowSplashScreen]=useState(true)
@@ -29,11 +30,11 @@ useEffect(()=>{
 
 },[])
   return (
-    <>
+    <AppContextProvider>
     <StatusBar backgroundColor='#01F0D0' animated={true} />
     {showSplashScreen&&splashContent}
     {!showSplashScreen&&<BottomNavigator />}
-    </>
+    </AppContextProvider>
      );
     // <SafeAreaView style={styles.container} >]\
       {/* <ScrollView showsVerticalScrollIndicator={false} */}

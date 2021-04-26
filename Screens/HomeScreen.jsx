@@ -32,7 +32,7 @@ function HomeScreen(props) {
 
 	return (
 		<>
-		<Toolbar navigation={props.navigation}/>
+		{/* <Toolbar navigation={props.navigation}/> */}
 		<View style={{alignItems:'center'}}>
 		<ScrollView style={styles.container} showsVerticalScrollIndicator={false}  showsHorizontalScrollIndicator={false}>
 		{/* <Navbar /> */}

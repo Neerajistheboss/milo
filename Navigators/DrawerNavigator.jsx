@@ -6,7 +6,7 @@ import SplashScreen from '../Screens/SplashScreen'
 import ContactScreen from '../Screens/ContactScreen'
 import { Ionicons } from '@expo/vector-icons';
 import DataScreen from '../Screens/DataScreen'
-
+import HomeStackNavigator from './HomeStackNavigator'
 
 const Drawer = createDrawerNavigator()
 
@@ -15,7 +15,7 @@ const DrawerNavigator=()=>{
         return (
            // <NavigationContainer>
               <Drawer.Navigator initialRouteName="Home">
-                <Drawer.Screen options={{title: 'Home',drawerIcon:({focused,size})=>(<Ionicons name='home-outline' size={18}  style={{margin:0}}/>)}} name="Home" component={HomeScreen} />
+                <Drawer.Screen options={{title: 'Homes',drawerIcon:({focused,size})=>(<Ionicons name='home-outline' size={18}  style={{margin:0}}/>)}} name="Homes" component={HomeStackNavigator} />
                 <Drawer.Screen options={{title: 'About Us',drawerIcon:({focused,size})=>(<Ionicons name='trophy-outline' size={18} style={{margin:0}} />)}} name="About Us" component={DataScreen} />
                 {/* <Drawer.Screen options={{title: 'Testimonials',drawerIcon:({focused,size})=>(<Ionicons name='people-outline' size={18} style={{margin:0}} />)}} name="Testimonials" component={HomeScreen} /> */}
                 <Drawer.Screen options={{title: 'Contact Us',drawerIcon:({focused,size})=>(<Ionicons name='mail-outline' size={18} style={{margin:0}} />)}} name="Contact Us" component={DataScreen} />
