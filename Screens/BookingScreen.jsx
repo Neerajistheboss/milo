@@ -5,7 +5,7 @@ import Form from '../Components/Form'
 import ReactDOM from 'react-dom'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Dimensions, Text,Image, View, Button } from 'react-native'
-
+import RazorpayCheckout from 'react-native-razorpay';
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement('script')
@@ -146,17 +146,7 @@ const BookingScreen=({route,navigation})=>{
 
 
     const displayRazorpay=async()=> {
-                console.log('display razorpay')
-        if(btnText!='Pay') return
-        console.log()
-        
-        const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
-
-        if (!res) {
-            alert('Razorpay SDK failed to load. Are you online?')
-            return
-        }
-        
+               
         const options = {
             key: 'rzp_test_pnLwxm5qF9vlbs',
             currency: 'INR',
@@ -199,9 +189,16 @@ const BookingScreen=({route,navigation})=>{
                     }
                 }
             }
+
+
+			RazorpayCheckout.open(options).then((data) => {
+				// handle success
+				alert(`Success: ${data.razorpay_payment_id}`);
+			  }).catch((error) => {
+				// handle failure
+				alert(`Error: ${error.code} | ${error.description}`);
+			  });
             
-            const paymentObject = new window.Razorpay(options)
-            paymentObject.open()
         }
 
 
@@ -289,7 +286,7 @@ const BookingScreen=({route,navigation})=>{
 			<View style={{borderBottomWidth:1}}></View>
 			<View style={{display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',backgroundColor:'#bbf6ff',height:75,padding:10,position:'absolute',left:0,bottom:0,width:Dimensions.get('window').width}}>
                 <Text style={{fontWeight:'bold',margin:10,color:'black'}}>Rs{parseInt(docData?.doc?.FEES)+25}</Text>
-                <View onPress={displayRazorpay}  style={{fontWeight:'bold',margin:10,backgroundColor:"#14cebe",color:'#FFF',padding:10}}>
+                <View style={{fontWeight:'bold',margin:10,backgroundColor:"#14cebe",color:'#FFF',padding:10}}>
 					<Button onPress={displayRazorpay}   title={btnText} />
 				</View>
             </View>

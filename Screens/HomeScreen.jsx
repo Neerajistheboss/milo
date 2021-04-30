@@ -41,7 +41,7 @@ function HomeScreen(props) {
 		<View style={{display:'flex',justifyContent:'center',alignItems:'center',margin:10,marginTop:3,backgroundColor:'#e6fffc',padding:5,borderRadius:10}}>
 			{/* <i class="far fa-search pl-1 pr-3"></i> */}
 			<TextInput
-			style={{width:300,border:0,backgroundColor:'#e6fffc'}}
+			style={{width:300,backgroundColor:'#e6fffc'}}
 			placeholder="Search for Doctors or Hospitals"
 			// onKeyDown={handleKeyDown}
 			value={search}
