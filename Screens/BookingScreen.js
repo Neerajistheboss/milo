@@ -145,70 +145,62 @@ const BookingScreen=({route,navigation})=>{
     }
 
 
-    const displayRazorpay=async()=> {
-               
-        const options = {
-            key: 'rzp_test_pnLwxm5qF9vlbs',
-            currency: 'INR',
-            amount: ((parseInt(docData?.doc?.FEES)+25)*100).toString(),
-            name: 'YuMedic',
-            
-            description: 'Pls complete the payment for booking',
-            image: 'https://i.ibb.co/QF0vxK2/yumedic.jpg',
-            handler: function (response) {
-                console.log(response)
-                console.log('Bookind Data')
-                // console.log({
-                    // 	docName:appData.values.docName,
-                    // 	date:appData.values.date,
-                    // 	time:appData.values.time
-                    // })
-                    console.log('Bookind Data')
-                    if(response.razorpay_payment_id) //payment has been done // //now submitting data for booking
-                    {
-                        console.log(response)
-                        makeBooking()
-                        
-                    }
-                    else{
-                        navigation.navigate('fail')
-                    }
-                    
-                },
-
-                // prefill: {
-                //     contact: '8434782113',
-                //     name: 'Guest'
-                // },
-                theme: {
-                    color: '#01f0d0'
-                },
-                modal: {
-                    ondismiss: function() {
-                        
-                    }
-                }
-            }
-
-
-			RazorpayCheckout.open(options).then((data) => {
-				// handle success
-				alert(`Success: ${data.razorpay_payment_id}`);
-			  }).catch((error) => {
-				// handle failure
-				alert(`Error: ${error.code} | ${error.description}`);
-			  });
-            
-        }
+	function displayRazorpay() {
+		var options = {
+		  key: "rzp_test_pnLwxm5qF9vlbs",
+		  currency: "INR",
+		  amount: ((parseInt(docData?.doc?.FEES) + 25) * 100).toString(),
+		  name: "YuMedic",
+	
+		  description: "Pls complete the payment for booking",
+		  image: "https://i.ibb.co/QF0vxK2/yumedic.jpg",
+		  handler: function (response) {
+			console.log(response);
+			console.log("Bookind Data");
+			// console.log({
+			// 	docName:appData.values.docName,
+			// 	date:appData.values.date,
+			// 	time:appData.values.time
+			// })
+			console.log("Bookind Data");
+			if (response.razorpay_payment_id) {
+			  //payment has been done // //now submitting data for booking
+			  console.log(response);
+			  makeBooking();
+			} else {
+			  navigation.navigate("fail");
+			}
+		  },
+	
+		  // prefill: {
+		  //     contact: '8434782113',
+		  //     name: 'Guest'
+		  // },
+		  theme: {
+			color: "#01f0d0",
+		  },
+		  // modal: {
+		  //     ondismiss: function() {
+	
+		  //     }
+		  // }
+		};
+	
+		RazorpayCheckout.open(options)
+		  .then((data) => {
+			// handle success
+			alert(`Success: ${data.razorpay_payment_id}`);
+		  })
+		  .catch((error) => {
+			// handle failure
+			alert(`Error: ${error.code} | ${error.description}`);
+		  });
+	  }
 
 
 
     useEffect(() => {
 			
-			
-			
-			
-
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=checkdocavailability&SHOP_ID=${route.params.SHOP_ID}&DOCTOR_ID=${route.params.DOCTOR_ID}`
 		axios.get(`${queryStr}`).then(function (response) {
 			console.log({doc:response.data.DOCTOR,slots:response.data.results})
