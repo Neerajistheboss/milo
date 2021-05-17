@@ -1,5 +1,7 @@
 import React from 'react'
-import { Ionicons } from '@expo/vector-icons';
+//import { Ionicons } from '@expo/vector-icons';
+//import { Ionicons } from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import ContactScreen from '../Screens/ContactScreen'
@@ -22,7 +24,8 @@ return(
         tabBarIcon:({focused,color,size})=>{
             let iconName
             if(route.name==='Home'){
-                iconName=focused?'home':'home-outline'
+             iconName=focused?'home':'home-outline'
+              
             }
             else if(route.name==='YuFacts'){
                 iconName=focused?'heart':'heart-outline'
