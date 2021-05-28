@@ -5,7 +5,8 @@ import SpecialityGrid from '../Components/SpecilaityGrid'
 // import Navbar from '../Components/Navbar'
 // import NewDoctorCard from '../Components/NewDoctorCard'
  import Toolbar from '../Components/Toolbar'
-
+import {DocCarousel} from '../Components/DocCarousel'
+import {PsychologistCarousel} from '../Components/PsychologistCarousel'
 
 
 function HomeScreen(props) {
@@ -27,6 +28,28 @@ function HomeScreen(props) {
 	// 		})
 	// 	}
 	//   }
+
+
+
+	const handBookNow=async(shopId,docId)=>{
+		console.log('inside handBookNow')
+		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=doctor_details&DOCTOR_ID=${docId}`
+		let docDetail
+		let hospId
+		await axios.get(`${queryStr}`).then(function (response) {
+			console.log(response.data.results)
+			docDetail=response.data.results
+			
+			
+		})
+		const index=docDetail?.DAYS.findIndex(day=>day.DOC_AVAILABILITY!=0)
+		hospId=docDetail?.DAYS[index]?.SHOPS[0]?.SHOP_ID
+       navigation.navigate('booking',{
+            SHOP_ID:hospId,
+            DOCTOR_ID:docId
+        });
+    }
+
 	
 
 
@@ -34,20 +57,30 @@ function HomeScreen(props) {
 		<>
 		{/* <Toolbar navigation={props.navigation}/> */}
 		<View style={{alignItems:'center'}}>
+		
+		
+		
 		<ScrollView style={styles.container} showsVerticalScrollIndicator={false}  showsHorizontalScrollIndicator={false}>
 		{/* <Navbar /> */}
 		<View style={{display:"flex",flexDirection:'column'}}>
 			
+			
 		<View style={{display:'flex',justifyContent:'center',alignItems:'center',margin:10,marginTop:3,backgroundColor:'#e6fffc',padding:5,borderRadius:10}}>
-			{/* <i class="far fa-search pl-1 pr-3"></i> */}
+			
 			<TextInput
 			style={{width:300,backgroundColor:'#e6fffc'}}
 			placeholder="Search for Doctors or Hospitals"
+			placeholderTextColor="#343A40"
 			// onKeyDown={handleKeyDown}
 			value={search}
 			onChange={handleSearchChange}
 			/>
 		</View>
+
+
+		{/* Carousels */}
+		{/* <DocCarousel  bookNow={handBookNow}/> */}
+		{/* <PsychologistCarousel bookNow={handBookNow}/> */}
 
         
 		<View style={{marginBottom:30}}>
@@ -72,6 +105,7 @@ function HomeScreen(props) {
 const styles=StyleSheet.create({
     container: {
         flexGrow: 1,
+		marginVertical:10
     },
     h3:{fontSize:18,
     fontWeight:'bold'},

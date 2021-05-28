@@ -5,43 +5,18 @@ import SpecialityGrid from './Components/SpecilaityGrid';
 import BottomNavigator from './Navigators/BottomNavigator';
 import DrawerNavigator from './Navigators/DrawerNavigator';
 import AppointmentScreen from './Screens/AppointmentScreen';
-import ContactScreen from './Screens/ContactScreen';
+import ContactScreen from './DocPages/ContactScreen'
 import HomeScreen from './Screens/HomeScreen';
 import ProfileScreen from './Screens/ProfileScreen';
-import SplashScreen from './Screens/SplashScreen';
 import { AppContextProvider } from './context/auth-context'
 
 export default function App() {
-  const [showSplashScreen,setShowSplashScreen]=useState(true)
-  const splashContent=(
-    <View style={splashStyles.container}>
-        <Text style={splashStyles.yumedic}>YuMedic</Text>
-        <Text style={splashStyles.presents}>PRESENTS</Text>
-        <Image source={require('./assets/milodoctor_logo.png')} style={{width:250,resizeMode:'contain'}} alt='logo'/>
-    </View>
-)
-
-const changeScreen=()=>{
-  setShowSplashScreen(false)
-}
-
-useEffect(()=>{
-  setTimeout(changeScreen,3000)
-
-},[])
   return (
     <AppContextProvider>
     <StatusBar backgroundColor='#01F0D0' animated={true} />
-    {showSplashScreen&&splashContent}
-    {!showSplashScreen&&<BottomNavigator />}
+    {<BottomNavigator />}
     </AppContextProvider>
      );
-    // <SafeAreaView style={styles.container} >]\
-      {/* <ScrollView showsVerticalScrollIndicator={false} */}
-  // showsHorizontalScrollIndicator={false}>
-  {/* <HomeScreen /> */}
-   {/* </ScrollView> */}
-    {/* </SafeAreaView> */}
     
     
 }

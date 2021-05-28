@@ -6,6 +6,10 @@ import ReactDOM from 'react-dom'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Dimensions, Text,Image, View, Button } from 'react-native'
 import RazorpayCheckout from 'react-native-razorpay';
+import NewDateAndTimeSlotHolder from '../Components/NewDateAndTimeSlotHolder.jsx'
+import { ScrollView } from 'react-native-gesture-handler'
+import moment from 'moment'
+import { NavigationActions, StackActions } from 'react-navigation'
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement('script')
@@ -59,10 +63,15 @@ const BookingScreen=({route,navigation})=>{
 	},[route.params.DOCTOR_ID])
 
 
+	console.log(selectedDayOrder)
+
     const makeBooking=async()=>{
+		// navigation.navigate('Profile',{screen:'Appointments'})
         console.log("Proceeding with booking") 
-		const userId=JSON.parse(await AsyncStorage.getItem('user')).USER_ID
-		const username=JSON.parse(await AsyncStorage.getItem('user')).USER_FULLNAME
+		// const userId=JSON.parse(await AsyncStorage.getItem('user')||'').USER_ID
+		const userId=201
+		// const username=JSON.parse(await AsyncStorage.getItem('user')||'').USER_FULLNAME
+		const username='USER_FULLNAME'
         let formData=new FormData()
         formData.append('WEEKDAY',docData?.slots[selectedDayOrder].WEEKDAY)
         formData.append('SLOT_ID',timeSlotId)
@@ -81,7 +90,9 @@ const BookingScreen=({route,navigation})=>{
 		
 
         let data
-        await axios
+       
+		console.log(formData)
+		await axios
 			.post(`https://admin.milodoctor.com/mobileapi/mobapi.php?f=booking`, formData)
 			.then(function (response) {
 				console.log('response 1')
@@ -105,23 +116,41 @@ const BookingScreen=({route,navigation})=>{
 				  console.log(response)
 				  if(response.data.MSG=="Booking has been confirmed now.")           //booking has been confirmed i.e. success 
 				  {
-
-				 
-				  //if success history.push() to success page
-				  //saving booking data to localStorage
-                  const bookingsLocalStorage=await AsyncStorage.getItem('bookings')
-				  const bookings=JSON.parse(bookingsLocalStorage)||[]
-				  bookings.unshift(
-					  {
-					  docID:appData.values.docId,
-					  docName:appData.values.docName||await AsyncStorage.getItem('docSelected'),
-					  date:appData.values.date,
-					  time:appData.values.time,
+					  
+					  
+					  console.log('================================================================')
+					//if success history.push() to success page
+					//saving booking data to AsyncStorage
+					// const bookings=JSON.parse(AsyncStorage.getItem('bookings'))||[]
+					const bookings=[]
+					
+					const booking={
+					  docID:appData.values.docId||AsyncStorage.getItem('docId'),
+					  docName:appData.values.docName||AsyncStorage.getItem('docSelected'),
+					  date:moment(appData.values.date,'dddd Do MMM YYYY').format('YYYY-MM-DD'),
+					  time:moment(appData.values.time?.replace('.',':').split('-')[0],"HH:mm").format('LT')
 				  }
-				  )
-				  await AsyncStorage.setItem('bookings',JSON.stringify(bookings))
-				  navigation.navigate('success')
-				}
+				  //adding userId to booking
+				  	booking.userId=userId
+					bookings.unshift(
+						booking
+					)
+					console.log('================================================================')
+					console.log(booking)
+					console.log('================================================================')
+					//send to server and store booking
+					await axios.post(`https://server.yumedic.com:5000/api/v1/appointments`,booking)
+				  
+					AsyncStorage.setItem('bookings',JSON.stringify(bookings))
+					navigation.dispatch(StackActions.reset({
+  							   index: 0,
+  							   actions: [
+  							     NavigationActions.navigate('Profile',{screen:'Appointments'})
+  							   ],
+  							 }))
+					// navigation.navigate('Profile',{screen:'Appointments'})
+				  }
+  
 
 				else{
 					//else if failed history.push() to 
@@ -218,6 +247,8 @@ const BookingScreen=({route,navigation})=>{
     
     return(
         <View style={{flex: 1}}>
+		<ScrollView>
+			
 			
 			{/* <DT timeFunction={1timeSelected} docId={doctorSelected.docId} /> */}
 			{/* <DocCard doc={doctor} bookbtn={false}/> */}
@@ -238,13 +269,13 @@ const BookingScreen=({route,navigation})=>{
             </View>
 
 
-{/* 			
+			
 			{docData?.slots&&<NewDateAndTimeSlotHolder 
                                                         selectedDayOrder={selectedDayOrder} 
                                                         setSelectedDayOrder={setSelectedDayOrder} 
                                                         timeSlotId={timeSlotId}
                                                         setTimeSlotId={setTimeSlotId}
-                                                        slots={docData.slots}/>} */}
+                                                        slots={docData.slots}/>}
 
 			<Form 
 				patientName={patientName}
@@ -287,10 +318,11 @@ const BookingScreen=({route,navigation})=>{
 			<View style={{display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',backgroundColor:'#bbf6ff',height:75,padding:10,position:'absolute',left:0,bottom:0,width:Dimensions.get('window').width}}>
                 <Text style={{fontWeight:'bold',margin:10,color:'black'}}>Rs{parseInt(docData?.doc?.FEES)+25}</Text>
                 <View style={{fontWeight:'bold',margin:10,backgroundColor:"#14cebe",color:'#FFF',padding:10}}>
-					<Button onPress={displayRazorpay}   title={btnText} />
+					<Button onPress={makeBooking}   title={btnText} />
 				</View>
             </View>
 			{/* {!formCompleted&&<h3>Fill the form to continue</h3>} */}
+		</ScrollView>
 		</View>
     )
 }

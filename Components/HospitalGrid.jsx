@@ -27,7 +27,7 @@ useEffect(()=>{
 
 return(
     
-        <View>
+        <View style={{alignItems:'center'}}>
     <FlatList numColumns={3} showsVerticalScrollIndicator={false} columnWrapperStyle={styles.row} data={hospitals} keyExtractor={item => item.SHOP_ID} renderItem={({item})=>{
         return  <View  className='col-4'  style={{width:120,padding:3,margin:1,textAlign:'center',borderRadius:10,backgroundColor:"#EEE"}}>
             <Image source={{uri:item.BANNER}} style={{width:80,height:80, borderRadius:50}}/>

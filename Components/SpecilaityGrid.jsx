@@ -31,7 +31,7 @@ const specialitySelected=(sid)=>{
 
 
 return(
-    <View>
+    <View style={{alignItems:'center'}}>
         <FlatList numColumns={3} showsVerticalScrollIndicator={false} columnWrapperStyle={styles.row} data={specialities} keyExtractor={item => item.SERVICE_ID} renderItem={({item})=>{
         return <TouchableOpacity style={styles.specialityCard} onPress={()=>specialitySelected(item.SERVICE_ID)}>
             <Image source={{uri:item.SERVICE_IMAGE}} style={{width:50,height:50, borderRadius:50}} alt='service' />

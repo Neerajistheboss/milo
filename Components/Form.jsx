@@ -18,7 +18,7 @@ const Form =(props)=>{
             </View>
             <View style={styles.inputBox}>
                 <Text>Mobile*</Text>
-                <TextInput value={props.phone} onChangeText={text=>props.setPhone(text)} />
+                <TextInput  value={props.phone} onChangeText={text=>props.setPhone(text)} keyboardType='phone-pad'/>
             </View>
             <View style={styles.inputBox}>
                 <Text>Address</Text>

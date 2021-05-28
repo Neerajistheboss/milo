@@ -59,7 +59,7 @@ const LoginScreen = (props) => {
 								
 
 								<View name='register'>
-									<View className='form-group' style={{ width: '350px' }}>
+									<View className='form-group' style={{ width: 350 }}>
 										<label htmlFor='exampleInputEmail1'> Mobile No.:</label>
 										<input
 											value={mobile}
@@ -72,10 +72,10 @@ const LoginScreen = (props) => {
 											placeholder='Enter Mobile No.' required></input>
 									</View>
 								
-									<View style={{width:'80%',backgroundColor:'#3ad3b2',color:'#FFF',fontSize:'18px',textAlign:'center',margin:"0 auto",padding:'15px 0'}}>
+									<View style={{width:'80%',backgroundColor:'#3ad3b2',color:'#FFF',fontSize:18,textAlign:'center',margin:"0 auto",padding:15}}>
 										Send Otp
 									</View>
-									<View className='form-group' style={{ width: '350px' }}>
+									<View className='form-group' style={{ width: 350 }}>
 										<p className='text-center'>
 											By signing up you accept our <NavLink to='terms' style={{color:"#00D0CC"}}>Terms Of Use</NavLink>
 										</p>

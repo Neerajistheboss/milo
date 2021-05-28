@@ -9,7 +9,6 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 import expo.modules.splashscreen.singletons.SplashScreen;
 import expo.modules.splashscreen.SplashScreenImageResizeMode;
-
 public class MainActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +36,20 @@ public class MainActivity extends ReactActivity {
                 return new RNGestureHandlerEnabledRootView(MainActivity.this);
             }
         };
+    }
+
+    @java.lang.Override
+    public int checkPermission(java.lang.String permission, int pid, int uid) {
+        return 0;
+    }
+
+    @java.lang.Override
+    public int checkSelfPermission(java.lang.String permission) {
+        return 0;
+    }
+
+    @java.lang.Override
+    public boolean shouldShowRequestPermissionRationale(java.lang.String permission) {
+        return false;
     }
 }

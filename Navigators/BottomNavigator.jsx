@@ -2,17 +2,21 @@ import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-import ContactScreen from '../Screens/ContactScreen'
+import ContactScreen from '../DocPages/ContactScreen'
 import ProfileScreen from '../Screens/ProfileScreen'
 import SplashScreen from '../Screens/SplashScreen'
 import HomeScreen from '../Screens/HomeScreen'
 import DrawerNavigator from './DrawerNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ProfileStackNavigator from './ProfileStackNavigator';
+import YuStackNavigator from '../Navigators/YuStackNavigator';
 
 const Tab=createBottomTabNavigator()
 
-const BottomNavigator=()=>{
+const BottomNavigator=({ navigation, route })=>{
+    const tabBarListeners = ({ navigation, route }) => ({
+        tabPress: () => navigation.navigate(route.name),
+    });
 return(
     // <SafeAreaProvider>
         
@@ -39,10 +43,10 @@ return(
         }
     })}
     >
-      <Tab.Screen name="Home" component={DrawerNavigator} />
-      <Tab.Screen name="YuFacts" component={SplashScreen} />
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} />
-      <Tab.Screen name="Help" component={ContactScreen} />
+      <Tab.Screen name="Home" component={DrawerNavigator} listeners={tabBarListeners}/>
+      <Tab.Screen name="YuFacts" component={YuStackNavigator} listeners={tabBarListeners}/>
+      <Tab.Screen name="Profile" component={ProfileStackNavigator} listeners={tabBarListeners}/>
+      <Tab.Screen name="Help" component={ContactScreen} listeners={tabBarListeners}/>
     </Tab.Navigator>
      </NavigationContainer>
     

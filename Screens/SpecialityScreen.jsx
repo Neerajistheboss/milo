@@ -27,7 +27,7 @@ const SpecialityScreen=({route,navigation})=>{
 
 	}, [appData.values.city])
 
-
+    //here shop id should also be used
     const handBookNow=async(docId)=>{
 		console.log('inside handBookNow')
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=doctor_details&DOCTOR_ID=${docId}`
