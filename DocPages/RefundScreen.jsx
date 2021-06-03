@@ -2,14 +2,6 @@ import React, { useContext,useEffect } from 'react'
 import { ScrollView } from 'react-native'
 import { AppContext } from '../context/auth-context'
 const RefundScreen = () => {
-	const auth = useContext(AppContext)
-	auth.time = null
-	
-	//scrool to top on page load
-	useEffect(() =>{
-        window.scrollTo(0,0)
-	},[])
-
 	
 	return (
 		<ScrollView className="text-justify px-1 pt-3">

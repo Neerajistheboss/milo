@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet,Image, Text, View } from 'react-native';
-import HospitalGrid from './Components/HospitalGrid';
+import HospitalGrid from './Components/HospitalGrid'
 import SpecialityGrid from './Components/SpecilaityGrid';
 import BottomNavigator from './Navigators/BottomNavigator';
 import DrawerNavigator from './Navigators/DrawerNavigator';

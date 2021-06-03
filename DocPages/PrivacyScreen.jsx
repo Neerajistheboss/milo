@@ -2,8 +2,6 @@ import React, { useContext } from 'react'
 import { ScrollView,Text } from 'react-native'
 import { AppContext } from '../context/auth-context'
 const PrivacyScreen = () => {
-	const auth = useContext(AppContext)
-	auth.time = null
 	return (
 		<ScrollView className="text-justify px-1 pt-3">
 			<Text>Privacy Policy</Text>

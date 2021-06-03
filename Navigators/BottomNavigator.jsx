@@ -15,7 +15,7 @@ const Tab=createBottomTabNavigator()
 
 const BottomNavigator=({ navigation, route })=>{
     const tabBarListeners = ({ navigation, route }) => ({
-        tabPress: () => navigation.navigate(route.name),
+        tabPress: () => {navigation.navigate(route.name);console.log(route.name,"========================================")}
     });
 return(
     // <SafeAreaProvider>
@@ -43,10 +43,10 @@ return(
         }
     })}
     >
-      <Tab.Screen name="Home" component={DrawerNavigator} listeners={tabBarListeners}/>
-      <Tab.Screen name="YuFacts" component={YuStackNavigator} listeners={tabBarListeners}/>
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} listeners={tabBarListeners}/>
-      <Tab.Screen name="Help" component={ContactScreen} listeners={tabBarListeners}/>
+      <Tab.Screen name="Home" component={DrawerNavigator} options={{unmountOnBlur:true}}/>
+      <Tab.Screen name="YuFacts" component={YuStackNavigator} options={{unmountOnBlur:true}}/>
+      <Tab.Screen name="Profile" component={ProfileStackNavigator} options={{unmountOnBlur:true}}/>
+      <Tab.Screen name="Help" component={ContactScreen} />
     </Tab.Navigator>
      </NavigationContainer>
     

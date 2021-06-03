@@ -3,11 +3,6 @@ import { AppContext } from '../context/auth-context'
 import { ScrollView, Text, View } from 'react-native'
 
 const AboutScreen = () => {
-	const auth = useContext(AppContext)
-	auth.time = null
-	useEffect(() =>{
-        window.scrollTo(0,0)
-    },[])
 
 
 	return (

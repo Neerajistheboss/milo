@@ -2,8 +2,6 @@ import React, { useContext } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { AppContext } from '../context/auth-context'
 const TermsScreen = () => {
-	const auth = useContext(AppContext)
-	auth.time = null
 	return (
 		<ScrollView>
 			<Text className="mt-3">TERMS AND CONDITIONS:</Text>

@@ -2,8 +2,6 @@ import React, { useContext } from 'react'
 import { ScrollView, Text } from 'react-native'
 import { AppContext } from '../context/auth-context'
 const DisclaimerScreen = () => {
-	const auth = useContext(AppContext)
-	auth.time = null
 	return (
 		<ScrollView>
 			<Text>Disclaimer</Text>
