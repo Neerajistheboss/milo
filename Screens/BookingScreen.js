@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Dimensions, Text,Image, View, Button } from 'react-native'
 import RazorpayCheckout from 'react-native-razorpay';
-import NewDateAndTimeSlotHolder from '../Components/NewDateAndTimeSlotHolder.jsx'
+import NewDateAndTimeSlotHolder from '../Components/NewDateAndTimeSlotHolder.js'
 import { ScrollView } from 'react-native-gesture-handler'
 import moment from 'moment'
 import { NavigationActions, StackActions } from 'react-navigation'
@@ -219,12 +219,12 @@ const BookingScreen=({route,navigation})=>{
 		RazorpayCheckout.open(options)
 		  .then((data) => {
 			// handle success
-			alert(`Success: ${data.razorpay_payment_id}`);
-			// makeBooking(); 
+			console.log(`Success: ${data.razorpay_payment_id}`);
+			makeBooking(); 
 		  })
 		  .catch((error) => {
 			// handle failure
-			alert(`Error: ${error.code} | ${error.description}`);
+			console.log(`Error: ${error.code} | ${error.description}`);
 		  });
 	  }
 

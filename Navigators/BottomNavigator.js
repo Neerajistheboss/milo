@@ -9,7 +9,7 @@ import HomeScreen from '../Screens/HomeScreen'
 import DrawerNavigator from './DrawerNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ProfileStackNavigator from './ProfileStackNavigator';
-import YuStackNavigator from '../Navigators/YuStackNavigator';
+import YuStackNavigator from './YuStackNavigator';
 
 const Tab=createBottomTabNavigator()
 

@@ -5,7 +5,7 @@ const ProfileScreen=({navigation})=>{
     return(
         <View style={styles.container}>
             <View style={{width:'100%',display:'flex',flex:1,justifyContent:'center',alignItems:'center'}}>
-            <Image source={require('../assets/user.png')} style={{width:100,resizeMode:'contain',borderRadius:100}} alt='logo'/>
+            {/* <Image source={require('../assets/user.png')} style={{width:100,resizeMode:'contain',borderRadius:100}} alt='logo'/> */}
             </View>
 
 

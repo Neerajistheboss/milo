@@ -5,8 +5,8 @@ import SpecialityGrid from '../Components/SpecilaityGrid'
 // import Navbar from '../Components/Navbar'
 // import NewDoctorCard from '../Components/NewDoctorCard'
  import Toolbar from '../Components/Toolbar'
-import {DocCarousel} from '../Components/DocCarousel'
-import {PsychologistCarousel} from '../Components/PsychologistCarousel'
+// import {DocCarousel} from '../Components/DocCarousel'
+// import {PsychologistCarousel} from '../Components/PsychologistCarousel'
 
 
 function HomeScreen(props) {
