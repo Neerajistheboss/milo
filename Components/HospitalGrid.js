@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 
 
-const HospitalGrid=()=>{
+const HospitalGrid=(props)=>{
 const [hospitals,setHospitals]=useState([])
 
 
@@ -15,12 +15,10 @@ useEffect(()=>{
 },[])
 
 
-// const handleSpecialitySelect=(hid)=>{
-//     history.push({
-//         pathname: '/hospital',
-//         search: `SHOP_ID=${hid}`
-//     });
-// }
+const handleHospitalSelect=(hid)=>{
+    props.navigation.navigate('HospitalSelect',{
+        hid:hid
+    })}
 
 
 
@@ -29,10 +27,10 @@ return(
     
         <View style={{alignItems:'center'}}>
     <FlatList numColumns={3} showsVerticalScrollIndicator={false} columnWrapperStyle={styles.row} data={hospitals} keyExtractor={item => item.SHOP_ID} renderItem={({item})=>{
-        return  <View  className='col-4'  style={{width:120,padding:3,margin:1,textAlign:'center',borderRadius:10,backgroundColor:"#EEE"}}>
+        return  <TouchableOpacity onPress={()=>handleHospitalSelect(item.SHOP_ID)}  className='col-4'  style={{width:120,padding:3,margin:1,textAlign:'center',borderRadius:10,backgroundColor:"#EEE"}}>
             <Image source={{uri:item.BANNER}} style={{width:80,height:80, borderRadius:50}}/>
             <Text style={styles.title}>{item.TITLE}</Text>
-        </View>}} />
+        </TouchableOpacity>}} />
         </View>
 )
 }

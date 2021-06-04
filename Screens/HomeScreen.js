@@ -92,7 +92,7 @@ function HomeScreen(props) {
 		<View style={{marginBottom:30}}>
 		<Text style={styles.h3}>Top Hospitals</Text>
 		<Text style={styles.h6  }>Book appointments from home</Text>
-		<HospitalGrid />
+		<HospitalGrid navigation={props.navigation} />
 		</View>
 		
 		</View>
