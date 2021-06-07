@@ -26,8 +26,6 @@ export const AppContextProvider = ({ children }) => {
 
 
 	const login = async(uid, token) => {
-		console.log("login")
-		console.log(uid + token)
 		setValues({ ...values, token, userId: uid, isLoggedIn: true })
 		await AsyncStorage.setItem("token", token)
 		await AsyncStorage.setItem("uid", uid)
@@ -59,13 +57,15 @@ export const AppContextProvider = ({ children }) => {
 			}
 
 			case "docName": {
-				console.log('upadting docName',value)
 				setValues({ ...values, docName: value })
 				break;
 			}
 			case "docId": {
-				console.log('upadting docId',value)
 				setValues({ ...values, docId: value })
+				break;
+			}
+			case "USER_ID": {
+				setValues({ ...values, userId: value })
 				break;
 			}
 			case "city": {
@@ -74,12 +74,10 @@ export const AppContextProvider = ({ children }) => {
 				break;
 			}
 			case "date": {
-				console.log('updating date',value)
 				setValues({ ...values, date: value })
 				break;
 			}
 			case "time": {
-				console.log('updating time',value)
 				setValues({ ...values, time: value })
 				break;
 			}

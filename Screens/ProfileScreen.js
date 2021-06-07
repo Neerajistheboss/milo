@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet,TouchableOpacity , View,Text, Dimensions, Image, Button } from 'react-native'
+import { StyleSheet,TouchableOpacity , View,Text, Dimensions, Image, Button,Alert, AsyncStorage } from 'react-native'
+import { AppContext } from '../context/auth-context';
 const ProfileScreen=({navigation})=>{
+    const appData=useContext(AppContext)
+    const showAlert=()=>Alert.alert(
+        "Logout",
+        "Confirm Logout",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "Logout", onPress: async() => {
+
+              await AsyncStorage.clear()
+              appData.setValueFunc('USER_ID',null)
+            }
+        }
+        ]
+      )
+
+
+
     return(
         <View style={styles.container}>
             <View style={{width:'100%',display:'flex',flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -24,7 +46,7 @@ const ProfileScreen=({navigation})=>{
                 <View style={{flex:1,justifyContent:'center'}}>
                 <View style={styles.buttonContainer}>
                <Button
-                 onPress={()=>{}}
+                 onPress={showAlert}
                  title='Logout'
                  color="#ff5e53"
                 />

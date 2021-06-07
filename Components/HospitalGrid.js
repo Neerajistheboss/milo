@@ -11,7 +11,7 @@ const [hospitals,setHospitals]=useState([])
 useEffect(()=>{
     fetch('https://admin.milodoctor.com/mobileapi/mobapi.php?f=shoplist&serviceid=1&type=featured')
         .then(response=>response.json())
-        .then(data=>{setHospitals(data.results);console.log(data.results)})
+        .then(data=>{setHospitals(data.results)})
 },[])
 
 

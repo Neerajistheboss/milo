@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-// import { useHistory } from "react-router-dom"
 
 
 const SpecialityGrid=({navigation})=>{
@@ -10,7 +9,7 @@ const [specialities,setSpecialities]=useState([])
 useEffect(()=>{
     fetch('https://admin.milodoctor.com/mobileapi/mobapi.php?f=servicelistbycat&catid=3')
         .then(response=>response.json())
-        .then(data=>{console.log(data.results);setSpecialities(data.results)})
+        .then(data=>{setSpecialities(data.results)})
 },[])
 
 // const handleSpecialitySelect=(sid)=>{
@@ -22,7 +21,7 @@ useEffect(()=>{
 // 	}
 
 const specialitySelected=(sid)=>{
-    console.log(sid)
+    
     navigation.navigate('SpecialitySelect',{
         sid:sid
     })

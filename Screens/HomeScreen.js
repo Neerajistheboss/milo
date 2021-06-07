@@ -1,43 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, TextInput, View ,StyleSheet,SafeAreaView,ScrollView} from 'react-native'
+import { Text, TextInput, View ,StyleSheet,SafeAreaView,ScrollView, AsyncStorage} from 'react-native'
 import HospitalGrid from '../Components/HospitalGrid'
+import SearchOptions from '../Components/SearchOptions'
 import SpecialityGrid from '../Components/SpecilaityGrid'
-// import Navbar from '../Components/Navbar'
-// import NewDoctorCard from '../Components/NewDoctorCard'
  import Toolbar from '../Components/Toolbar'
-// import {DocCarousel} from '../Components/DocCarousel'
-// import {PsychologistCarousel} from '../Components/PsychologistCarousel'
 
 
 function HomeScreen(props) {
-	console.log(props)
-
-
 	const [search,setSearch]=useState("")
-
 	const handleSearchChange=(e)=>{
-		console.log(e.target.value)
 		setSearch(e.target.value)
 	}
-
-	// const handleKeyDown = (event) => {
-	// 	if (event.key === 'Enter') {
-	// 		history.push({
-	// 			pathname: '/search',
-	// 			search: `serviceid=${search}`
-	// 		})
-	// 	}
-	//   }
 
 
 
 	const handBookNow=async(shopId,docId)=>{
-		console.log('inside handBookNow')
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=doctor_details&DOCTOR_ID=${docId}`
 		let docDetail
 		let hospId
 		await axios.get(`${queryStr}`).then(function (response) {
-			console.log(response.data.results)
 			docDetail=response.data.results
 			
 			
@@ -65,7 +46,7 @@ function HomeScreen(props) {
 		<View style={{display:"flex",flexDirection:'column'}}>
 			
 			
-		<View style={{display:'flex',justifyContent:'center',alignItems:'center',margin:10,marginTop:3,backgroundColor:'#e6fffc',padding:5,borderRadius:10}}>
+		{/* <View style={{display:'flex',justifyContent:'center',alignItems:'center',margin:10,marginTop:3,backgroundColor:'#e6fffc',padding:5,borderRadius:10}}>
 			
 			<TextInput
 			style={{width:300,backgroundColor:'#e6fffc'}}
@@ -73,10 +54,11 @@ function HomeScreen(props) {
 			placeholderTextColor="#343A40"
 			// onKeyDown={handleKeyDown}
 			value={search}
-			onChange={handleSearchChange}
+			onChangeText={handleSearchChange}
 			/>
-		</View>
+		</View> */}
 
+		<SearchOptions navigation={props.navigation}/>
 
 		{/* Carousels */}
 		{/* <DocCarousel  bookNow={handBookNow}/> */}

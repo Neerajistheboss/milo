@@ -1,19 +1,15 @@
 import  moment from 'moment'
 import React,{useEffect,useState} from 'react'
 import axios from 'axios' 
-import { View,ScrollView, Text } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { View,ScrollView, Text,AsyncStorage } from 'react-native'
 import Appointment from '../Components/Apointment'
 
-const getLocalStorage = async(fieldName) =>{
-	await JSON.parse( AsyncStorage.getItem(fieldName))
-}
 const SuccessScreen = () => {
 
-	// const userId=getLocalStorage('user').USER_ID
-	const userId=201
+	let [userId,setUserId]=useState(null)
 	const [bookings,setBookings]=useState([])
 
+	AsyncStorage.getItem('user').then(user=>setUserId(JSON.parse(user).USER_ID))
 
 
 	const cardClassFunc=(bookingDate,bookingTime)=>{
@@ -39,13 +35,14 @@ const SuccessScreen = () => {
 		return  cardColor
 	}
 	useEffect(() => {
+		console.log(userId)
+		if(userId)
 		axios.get(`https://server.yumedic.com:5000/api/v1/appointments/user/${userId}`)
 			 .then(response =>{
-				 console.log('=================================================================')
-				 console.log(response.data.appointments)
 				 setBookings(response.data.appointments)
+				 console.log(response.data.appointments)
 			 })
-	},[])
+	},[userId])
 
 	
 

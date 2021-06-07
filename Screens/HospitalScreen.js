@@ -13,12 +13,8 @@ const HospitalPage=({route,navigation})=>{
 
 
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=shopdetails&shopid=${route.params.hid}`
-        console.log(queryStr)
-		axios.get(`${queryStr}`).then(function (response) {
-            console.log('================================================================================================')
-            console.log(response.data.results)
-            console.log('================================================================================================')
-			setHospitalData(response.data.results)
+       axios.get(`${queryStr}`).then(function (response) {
+       	setHospitalData(response.data.results)
 		})
 	}, [])
 
@@ -28,8 +24,7 @@ const HospitalPage=({route,navigation})=>{
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=doctor_details&DOCTOR_ID=${docId}`
 		let docDetail
 		let hospId
-        console.log(queryStr)
-		await axios.get(`${queryStr}`).then(function (response) {
+       await axios.get(`${queryStr}`).then(function (response) {
 			docDetail=response.data.results
 			
 			

@@ -22,26 +22,7 @@ const LoginScreen = (props) => {
 		setOtp(event.target.value)
 	}
 
-	// function googleLogin() {
-	// 	axios
-	// 		.get('https://yuver.herokuapp.com/api/v1/auth/oauth/google')
-	// 		.then(function (response) {
-	// 			console.log(response.data.success)
-	// 			if (!response.data.success) {
-	// 				//do nothing
-	// 			} else {
-	// 				//save token in local storage
-	// 				let token = response.data.token
-	// 				let uid = response.data.userId
-	// 				localStorage.setItem('token', token)
-	// 				localStorage.setItem('uid', uid)
-
-	// 				//         //load homepage
-	// 				auth.login(uid, token)
-	// 				window.history.push('/')
-	// 			}
-	// 		})
-	// }
+	
 
 	return (
 		<View>

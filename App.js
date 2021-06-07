@@ -8,14 +8,20 @@ import AppointmentScreen from './Screens/AppointmentScreen';
 import ContactScreen from './DocPages/ContactScreen'
 import HomeScreen from './Screens/HomeScreen';
 import ProfileScreen from './Screens/ProfileScreen';
-import { AppContextProvider } from './context/auth-context'
+import { AppContext, AppContextProvider } from './context/auth-context'
+import FormikLoginScreen from './Screens/FormikLoginScreen';
+import RegisterFormikScreen from './Screens/RegisterFormikScreen';
+import { AsyncStorage } from 'react-native';
+import { useContext } from 'react';
 
 export default function App() {
+    
   return (
     <AppContextProvider>
-    <StatusBar backgroundColor='#01F0D0' animated={true} />
-    {<BottomNavigator />}
-    </AppContextProvider>
+    {/* <RegisterFormikScreen /> */}
+     <StatusBar backgroundColor='#01F0D0' animated={true} />
+     <BottomNavigator />
+     </AppContextProvider>
      );
     
     

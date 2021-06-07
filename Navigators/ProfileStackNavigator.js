@@ -9,8 +9,8 @@ const Stack=createStackNavigator()
 
 const ProfileStackNavigator=()=>{
     return(
-        <Stack.Navigator  initialRouteName="Profile" >
-            <Stack.Screen name='Profile' component={ProfileScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
+        <Stack.Navigator  initialRouteName="ProfileScreen" >
+            <Stack.Screen name='ProfileScreen' component={ProfileScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
             <Stack.Screen name='Appointments' component={SuccessScreen} options={{title: 'MiloDoctor',headerStyle: {
             backgroundColor: '#01d8bb'
           },headerTintColor: '#fff',}} />

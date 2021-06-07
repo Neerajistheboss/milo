@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
@@ -10,17 +10,32 @@ import DrawerNavigator from './DrawerNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ProfileStackNavigator from './ProfileStackNavigator';
 import YuStackNavigator from './YuStackNavigator';
-
+import { AsyncStorage } from 'react-native';
+import { useState } from 'react';
+import AuthStackNavigator from './AuthStackNavigator'
+import { useContext } from 'react';
+import { AppContext } from '../context/auth-context';
 const Tab=createBottomTabNavigator()
 
 const BottomNavigator=({ navigation, route })=>{
+    const appData=useContext(AppContext)
+    const [userId,setUserId]=useState(null)
+    let uid
+    AsyncStorage.getItem('user').then(user=>{
+        uid=JSON.parse(user)?.USER_ID||appData.values.userId
+        setUserId(uid)
+    })
+
+
     const tabBarListeners = ({ navigation, route }) => ({
-        tabPress: () => {navigation.navigate(route.name);console.log(route.name,"========================================")}
+        tabPress: () => {navigation.navigate(route.name)}
     });
 return(
     // <SafeAreaProvider>
         
     <NavigationContainer>
+    {
+        userId?
     <Tab.Navigator
     screenOptions={({route})=>({
         tabBarIcon:({focused,color,size})=>{
@@ -47,7 +62,9 @@ return(
       <Tab.Screen name="YuFacts" component={YuStackNavigator} options={{unmountOnBlur:true}}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigator} options={{unmountOnBlur:true}}/>
       <Tab.Screen name="Help" component={ContactScreen} />
-    </Tab.Navigator>
+    </Tab.Navigator>:
+    <AuthStackNavigator />
+    }
      </NavigationContainer>
     
     // </SafeAreaProvider>

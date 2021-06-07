@@ -26,7 +26,7 @@ function loadScript(src) {
 
 
 const BookingScreen=({route,navigation})=>{
-    const appData=useContext(AppContext)
+	const appData=useContext(AppContext)
 
     const [docData,setDocData]=useState(null)
 	const [btnText,setBtnText]=useState('Fill Details')
@@ -63,13 +63,13 @@ const BookingScreen=({route,navigation})=>{
 	},[route.params.DOCTOR_ID])
 
 
-	console.log(selectedDayOrder)
+	
 
     const makeBooking=async()=>{
 		// navigation.navigate('Profile',{screen:'Appointments'})
-        console.log("Proceeding with booking") 
-		// const userId=JSON.parse(await AsyncStorage.getItem('user')||'').USER_ID
-		const userId=201
+       
+		const userId=JSON.parse(await AsyncStorage.getItem('user')).USER_ID
+		
 		// const username=JSON.parse(await AsyncStorage.getItem('user')||'').USER_FULLNAME
 		const username='USER_FULLNAME'
         let formData=new FormData()
@@ -91,12 +91,9 @@ const BookingScreen=({route,navigation})=>{
 
         let data
        
-		console.log(formData)
 		await axios
 			.post(`https://admin.milodoctor.com/mobileapi/mobapi.php?f=booking`, formData)
 			.then(function (response) {
-				console.log('response 1')
-				console.log(response)
 				data=response.data
 				const msg=data.MSG
 				const result=data.results                                   //test this and store the object containing booking id
@@ -112,13 +109,8 @@ const BookingScreen=({route,navigation})=>{
 		await axios
 			  .post(`https://admin.milodoctor.com/mobileapi/mobapi.php?f=confirm_booking`,bodypament)
 			  .then(async(response)=>{
-				  console.log('response 2')
-				  console.log(response)
 				  if(response.data.MSG=="Booking has been confirmed now.")           //booking has been confirmed i.e. success 
 				  {
-					  
-					  
-					  console.log('================================================================')
 					//if success history.push() to success page
 					//saving booking data to AsyncStorage
 					// const bookings=JSON.parse(AsyncStorage.getItem('bookings'))||[]
@@ -135,19 +127,12 @@ const BookingScreen=({route,navigation})=>{
 					bookings.unshift(
 						booking
 					)
-					console.log('================================================================')
-					console.log(booking)
-					console.log('================================================================')
 					//send to server and store booking
 					await axios.post(`https://server.yumedic.com:5000/api/v1/appointments`,booking)
 				  
 					AsyncStorage.setItem('bookings',JSON.stringify(bookings))
-					navigation.dispatch(StackActions.reset({
-  							   index: 0,
-  							   actions: [
-  							     NavigationActions.navigate('Profile',{screen:'Appointments'})
-  							   ],
-  							 }))
+					navigation.navigate('Profile',{screen:'Appointments'})
+  							   
 					// navigation.navigate('Profile',{screen:'Appointments'})
 				  }
   
@@ -185,17 +170,9 @@ const BookingScreen=({route,navigation})=>{
 		  description: "Pls complete the payment for booking",
 		  image: "https://i.ibb.co/QF0vxK2/yumedic.jpg",
 		  handler: function (response) {
-			console.log(response);
-			console.log("Bookind Data");
-			// console.log({
-			// 	docName:appData.values.docName,
-			// 	date:appData.values.date,
-			// 	time:appData.values.time
-			// })
-			console.log("Bookind Data");
 			if (response.razorpay_payment_id) {
 			  //payment has been done // //now submitting data for booking
-			  console.log(response);
+			 
 			  makeBooking();
 			} else {
 			  navigation.navigate("fail");
@@ -219,12 +196,12 @@ const BookingScreen=({route,navigation})=>{
 		RazorpayCheckout.open(options)
 		  .then((data) => {
 			// handle success
-			console.log(`Success: ${data.razorpay_payment_id}`);
+			
 			makeBooking(); 
 		  })
 		  .catch((error) => {
 			// handle failure
-			console.log(`Error: ${error.code} | ${error.description}`);
+			
 		  });
 	  }
 
@@ -238,7 +215,7 @@ const BookingScreen=({route,navigation})=>{
 
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=checkdocavailability&SHOP_ID=${route.params.SHOP_ID}&DOCTOR_ID=${route.params.DOCTOR_ID}`
 		axios.get(`${queryStr}`).then(function (response) {
-			console.log({doc:response.data.DOCTOR,slots:response.data.results})
+			
 			setDocData({doc:response.data.DOCTOR,slots:response.data.results})
 		})
 	}, [])

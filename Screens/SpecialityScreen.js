@@ -18,10 +18,8 @@ const SpecialityScreen=({route,navigation})=>{
 
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=list_doctor&SERVICE_ID=${route.params.sid}&uuid=42&CITY=${appData.values.city}`
 		axios.get(`${queryStr}`).then(function (response) {
-            console.log("data fetched")
-			setDoctors(response.data.results||[])
-            console.log(response.data)
-			if (response.data.results?.length== 0||response.data.results==null) setDivText('Sorry No Doctors Found')
+           setDoctors(response.data.results||[])
+           if (response.data.results?.length== 0||response.data.results==null) setDivText('Sorry No Doctors Found')
 			
 		})
 
@@ -29,12 +27,10 @@ const SpecialityScreen=({route,navigation})=>{
 
     //here shop id should also be used
     const handBookNow=async(docId)=>{
-		console.log('inside handBookNow')
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=doctor_details&DOCTOR_ID=${docId}`
 		let docDetail
 		let hospId
 		await axios.get(`${queryStr}`).then(function (response) {
-			console.log(response.data.results)
 			docDetail=response.data.results
 			
 			
