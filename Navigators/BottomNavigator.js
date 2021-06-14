@@ -50,7 +50,7 @@ return(
                 iconName=focused?'help-circle':'help-circle-outline'
             }
 
-            return<FontAwesome5 name={'facebook'} size={size} color={color} />
+            return<Ionicons name={iconName} size={size} color={color} />
         }
     })}
     >
