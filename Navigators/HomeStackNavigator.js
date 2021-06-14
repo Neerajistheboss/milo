@@ -5,6 +5,7 @@ import SpecialityScreen from '../Screens/SpecialityScreen'
 import BookingScreen from '../Screens/BookingScreen'
 import HospitalScreen from '../Screens/HospitalScreen'
 import SearchScreen from '../Screens/SearchScreen'
+import VideoCallScreen from '../Screens/VideoCallScreen'
 const Stack=createStackNavigator()
 
 const HomeStackNavigator=()=>{

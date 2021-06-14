@@ -29,6 +29,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.razorpay.rn.RazorpayPackage;
+import com.twiliorn.library.TwilioPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
@@ -46,6 +47,7 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
 //      packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
 //      packages.add(new RazorpayPackage());
+        packages.add(new TwilioPackage());
       return packages;
     }
 

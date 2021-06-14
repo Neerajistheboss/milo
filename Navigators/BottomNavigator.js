@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
-import { Ionicons } from '@expo/vector-icons';
+import React from 'react'
+import { Ionicons,FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import ContactScreen from '../DocPages/ContactScreen'
-import ProfileScreen from '../Screens/ProfileScreen'
-import SplashScreen from '../Screens/SplashScreen'
-import HomeScreen from '../Screens/HomeScreen'
 import DrawerNavigator from './DrawerNavigator';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ProfileStackNavigator from './ProfileStackNavigator';
 import YuStackNavigator from './YuStackNavigator';
 import { AsyncStorage } from 'react-native';
@@ -54,7 +50,7 @@ return(
                 iconName=focused?'help-circle':'help-circle-outline'
             }
 
-            return<Ionicons name={iconName} size={size} color={color} />
+            return<FontAwesome5 name={'facebook'} size={size} color={color} />
         }
     })}
     >

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { View,ScrollView, Text,AsyncStorage } from 'react-native'
 import Appointment from '../Components/Apointment'
 
-const SuccessScreen = () => {
+const SuccessScreen = ({navigation}) => {
 
 	let [userId,setUserId]=useState(null)
 	const [bookings,setBookings]=useState([])
@@ -51,7 +51,7 @@ const SuccessScreen = () => {
 			<Text style={{textAlign: 'center'}}>Booking List</Text>
 			{bookings?.map(booking=>{
 					const cardClass=cardClassFunc(booking.date,booking.time)
-					return <Appointment booking={booking}/>
+					return <Appointment booking={booking} navigation={navigation}/>
 					
 					
 
