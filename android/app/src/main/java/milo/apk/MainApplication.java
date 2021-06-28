@@ -6,6 +6,8 @@ import android.net.Uri;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,7 +31,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.razorpay.rn.RazorpayPackage;
-
+import com.twiliorn.library.TwilioPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
     new BasePackageList().getPackageList()
@@ -44,8 +47,10 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
-//      packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
+      packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
 //      packages.add(new RazorpayPackage());
+//        packages.add(new VectorIconsPackage());
+        packages.add(new TwilioPackage());
       return packages;
     }
 

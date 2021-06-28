@@ -77,10 +77,10 @@ const RegisterFormikScreen=({navigation})=>{
                     <TextInput style={[styles.inputs,styles.rounded]} value={values.phone} value={values.phone} placeholder='Phone' placeholderTextColor={'#008A80'} onChangeText={handleChange('phone')} /> 
                     <Text style={{color:'red'}}>{errors.phone}</Text>
                     <Text style={{color:'#008A80'}}>Password</Text>
-                    <TextInput style={[styles.inputs,styles.rounded]} value={values.phone} value={values.password} placeholder='Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('password')}/>
+                    <TextInput style={[styles.inputs,styles.rounded]} secureTextEntry value={values.phone} value={values.password} placeholder='Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('password')}/>
                     <Text style={{color:'red'}}>{errors.password}</Text>
                     <Text style={{color:'#008A80'}}>Confirm Password</Text>
-                    <TextInput style={[styles.inputs,styles.rounded]} value={values.phone} value={values.confirmPassword} placeholder='Confirm Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('confirmPassword')}/>
+                    <TextInput style={[styles.inputs,styles.rounded]} secureTextEntry value={values.phone} value={values.confirmPassword} placeholder='Confirm Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('confirmPassword')}/>
                     <Text style={{color:'red'}}>{errors.confirmPassword}</Text>
                     <TouchableOpacity onPress={handleSubmit} style={[styles.inputs,styles.rounded,{backgroundColor:'#008A80',borderColor:'#008A80',padding:10,alignItems:'center'}]}>
                       

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createDrawerNavigator ,DrawerItem} from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import ContactScreen from '../DocPages/ContactScreen'
 import { Ionicons } from '@expo/vector-icons';
@@ -24,8 +24,7 @@ const DrawerNavigator=()=>{
                 <Drawer.Screen options={{title: 'Terms & Conditions',drawerIcon:({focused,size})=>(<Ionicons name='lock-closed-outline' size={18} style={{margin:0}} />)}} name="Terms & Conditions" component={TermsScreen} />
                 <Drawer.Screen options={{title: 'Refund Policy',drawerIcon:({focused,size})=>(<Ionicons name='card-outline' size={18} style={{margin:0}} />)}} name="Refund Policy" component={RefundScreen} />
                 <Drawer.Screen options={{title: 'Privacy Policy',drawerIcon:({focused,size})=>(<Ionicons name='shield-checkmark-outline' size={18} style={{margin:0}} />)}} name="Privacy Policy" component={PrivacyScreen} />
-                <Drawer.Screen options={{unmountOnBlur:true, title: 'Logout',drawerIcon:({focused,size})=>(<Ionicons name='log-out-outline' size={18} style={{margin:0}} />)}} name="Logout" component={HomeStackNavigator} />
-               </Drawer.Navigator>
+                </Drawer.Navigator>
             //</NavigationContainer>
     )
     

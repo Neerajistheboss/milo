@@ -1,58 +1,59 @@
-import React, { useContext } from 'react'
-import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet,TouchableOpacity , View,Text, Dimensions, Image, Button,Alert, AsyncStorage } from 'react-native'
+import React, { useContext, useState,useEffect } from 'react'
+import { Ionicons,FontAwesome5 } from '@expo/vector-icons';
+import { StyleSheet,TouchableHighlight , View,Text, Dimensions, Image, Button,Alert, AsyncStorage, Modal } from 'react-native'
 import { AppContext } from '../context/auth-context';
+import EditProfileModal from '../Components/EditProfileModal';
 const ProfileScreen=({navigation})=>{
     const appData=useContext(AppContext)
-    const showAlert=()=>Alert.alert(
-        "Logout",
-        "Confirm Logout",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
-          { text: "Logout", onPress: async() => {
 
-              await AsyncStorage.clear()
-              appData.setValueFunc('USER_ID',null)
-            }
-        }
-        ]
-      )
 
+    const [userImage,setUserImage]=useState()
+    const [userName,setuserName]=useState()
+    const [userAge,setuserAge]=useState()
+    const [userPhone,setuserPhone]=useState()
+    
+    const [showModal,setShowModal]=useState(false)
+
+    useEffect(() => {
+        AsyncStorage.getItem('userInfo').then((userInfo=>{
+            console.log('userInfo',userInfo)
+            const user=JSON.parse(userInfo)
+            setUserImage(user.photo)
+            setuserName(user.name)
+            setuserAge(user.age)
+            setuserPhone(user.phone)
+            
+            
+        
+        }))
+    },[showModal])
+
+    
+    
 
 
     return(
         <View style={styles.container}>
-            <View style={{width:'100%',display:'flex',flex:1,justifyContent:'center',alignItems:'center'}}>
-            {/* <Image source={require('../assets/user.png')} style={{width:100,resizeMode:'contain',borderRadius:100}} alt='logo'/> */}
+            <Ionicons onPress={()=>setShowModal(true)} name='create-sharp' size={18} color='#008A80'  style={{alignSelf:'flex-end'}}/>
+            <Text onPress={()=>setShowModal(true)} style={{alignSelf:'flex-end',color:'#008A80'}}>Edit</Text>
+            <View style={styles.userImgHolder}>
+            <Image source={{uri:userImage}} style={{width:120,height:120}} />
             </View>
+            <Text style={styles.userName}>{userName}</Text>
+            <Text >Age:{userAge}</Text>
+            <Text >Phone:{userPhone}</Text>
+            <TouchableHighlight underlayColor='#4dada6' onPress={()=>{navigation.navigate('Appointments')}}  style={styles.buttonHolder}>
+            <Text style={styles.button}>Check Bookings</Text>
+            </TouchableHighlight>
+            <Modal
+                animationType="slide"
+                visible={showModal}
+                onRequestClose={() =>setShowModal(false)}>
 
 
-            <View style={{...styles.card,paddingHorizontal:'5%'}} >
-                
-                <TouchableOpacity onPress={()=>{navigation.navigate('Appointments')}}  style={styles.infoBox}>
-                    <Ionicons style={styles.icon} name="reader-outline"  size={16} color='gray'/>
-                    <Text style={styles.detail}>Appointments</Text>
-                    <Text style={styles.arrow}>></Text>
-                </TouchableOpacity >
-                <TouchableOpacity  style={styles.infoBox}>
-                    <Ionicons style={styles.icon} name="create-outline"  size={16} color='gray'/>
-                    <Text style={styles.detail}>Edit Profile</Text>
-                    <Text style={styles.arrow}>></Text>
-                </TouchableOpacity >
-                <View style={{flex:1,justifyContent:'center'}}>
-                <View style={styles.buttonContainer}>
-               <Button
-                 onPress={showAlert}
-                 title='Logout'
-                 color="#ff5e53"
-                />
-               </View>
-                </View>
-            </View>
+       <EditProfileModal setShowModal={setShowModal} name={userName} age={userAge} phone={userPhone} photo={userImage} />
+      </Modal>
+
         </View>
     )
 }
@@ -60,52 +61,45 @@ const ProfileScreen=({navigation})=>{
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        justifyContent:'center',
+        justifyContent:'flex-start',
         alignItems:'center',
         padding:10,
-        paddingVertical:30
     },
-    
-    card:{
-        flex:3,
-        borderRadius:5,
-        alignItems:'center',
-        width:Dimensions.get('window').width*0.9,
-        paddingVertical:10,
-        shadowColor: '#FFF',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 200,
-        elevation: 3,
+    userImgHolder:{
+        width:120,
+        height:120,
+        borderRadius:5000,
+        borderWidth:7,
+        borderColor:'#008A80',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        overflow: 'hidden',
     },
-    imageBox:{
-        flex:1,
-        justifyContent:'flex-end',
+    userName:{
+        fontSize:24,
+        fontWeight:'bold',
+        color:'#008A80'
     },
-    infoBox:{
-        display:'flex',
-        flexDirection:'row',
-        borderBottomColor:'#CCC',
-        borderBottomWidth:1,
+    buttonHolder:{
+        borderRadius:20,
+        overflow: 'hidden',
+        marginTop:50,
         padding:10,
-        paddingBottom:15,
-        width:'90%',
+        backgroundColor:'#008A80'
     },
-    icon:{
-        marginRight:10
-    },
-    detail:{
+    button:{
         fontSize:16,
-    },
-    arrow:{
-        marginLeft:'auto'
-    },
-    buttonContainer:{
-        margin:20,
-        borderRadius:10,
-        overflow:'hidden',
-        width:100,
+        fontWeight:'bold',
+        color:'#FFF'
     }
+
 })
 
 export default ProfileScreen
+
+
+{/* <TouchableOpacity onPress={()=>{navigation.navigate('Appointments')}}  style={styles.infoBox}>
+                    <Ionicons style={styles.icon} name="reader-outline"  size={16} color='gray'/>
+                    <Text style={styles.detail}>Appointments</Text>
+                    <Text style={styles.arrow}>></Text>
+                </TouchableOpacity > */}

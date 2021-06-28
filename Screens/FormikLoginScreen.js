@@ -68,10 +68,9 @@ const FormikLoginScreen=({navigation})=>{
                     <TextInput style={[styles.inputs,styles.rounded]} value={values.phone} placeholder='Phone' placeholderTextColor={'#008A80'} onChangeText={handleChange('phone')} /> 
                     <Text style={{color:'red'}}>{errors.phone}</Text>
                     <Text style={{color:'#008A80'}}>Password</Text>
-                    <TextInput style={[styles.inputs,styles.rounded]} value={values.password} placeholder='Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('password')}/>
+                    <TextInput style={[styles.inputs,styles.rounded]} value={values.password} secureTextEntry placeholder='Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('password')}/>
                     <Text style={{color:'red'}}>{errors.password}</Text>
                     <TouchableOpacity onPress={handleSubmit} style={[styles.inputs,styles.rounded,{backgroundColor:'#008A80',borderColor:'#008A80',padding:10,alignItems:'center'}]}>
-                      
                     <Text style={{color:'#FFF',fontSize:18}}>Login</Text>
                     </TouchableOpacity>
                     <Text onPress={() =>navigation.navigate('Register')} style={{color:'#008A80',textAlign:'center',alignSelf:'center',marginTop:2,textDecorationLine:'underline'}}>Create a new account</Text>

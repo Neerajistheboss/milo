@@ -1,14 +1,20 @@
 import React, { createContext, useState, useCallback, useEffect } from 'react'
 
 import moment from 'moment'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AsyncStorage } from 'react-native';
 
 export const AppContext = createContext()
 
 
 export const AppContextProvider = ({ children }) => {
+	useEffect(() =>{
+		AsyncStorage.getItem('user').then(user=>{
+			uid=JSON.parse(user)?.USER_ID||appData.values.userId
+			setValueFunc('USER_ID',uid)
+		})
+	},[])
 
-	const [values, setValues] = useState({
+	initialValues={
 		isLoggedIn: false,
 		patientName: null,
 		userId: null,	
@@ -21,7 +27,15 @@ export const AppContextProvider = ({ children }) => {
 		hospitalId: null,
 		cost: null,
 		city:"Dhanbad"
-	})
+	}
+
+
+	// useEffect(() => {
+	// 	fetchLocalStorage()
+	// },[])
+
+	
+	const [values, setValues] = useState(initialValues)
 
 
 

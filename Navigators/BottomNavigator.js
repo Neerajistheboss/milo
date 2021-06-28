@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
-import { Ionicons } from '@expo/vector-icons';
+import React from 'react'
+import Icon from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import ContactScreen from '../DocPages/ContactScreen'
-import ProfileScreen from '../Screens/ProfileScreen'
-import SplashScreen from '../Screens/SplashScreen'
-import HomeScreen from '../Screens/HomeScreen'
 import DrawerNavigator from './DrawerNavigator';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ProfileStackNavigator from './ProfileStackNavigator';
 import YuStackNavigator from './YuStackNavigator';
 import { AsyncStorage } from 'react-native';
@@ -36,7 +32,7 @@ return(
     <NavigationContainer>
     {
         userId?
-    <Tab.Navigator
+    <Tab.Navigator tabBarOptions={{activeTintColor:'#4DADA6',inactiveTintColor:'#4DADA6'}}
     screenOptions={({route})=>({
         tabBarIcon:({focused,color,size})=>{
             let iconName
@@ -54,7 +50,7 @@ return(
                 iconName=focused?'help-circle':'help-circle-outline'
             }
 
-            return<Ionicons name={iconName} size={size} color={color} />
+            return<Icon name={iconName} size={size} color={'#4DADA6'} />
         }
     })}
     >

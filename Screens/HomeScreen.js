@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, TextInput, View ,StyleSheet,SafeAreaView,ScrollView, AsyncStorage} from 'react-native'
+import { Text, TextInput, View ,StyleSheet,SafeAreaView,ScrollView, AsyncStorage, Button,PermissionsAndroid} from 'react-native'
 import HospitalGrid from '../Components/HospitalGrid'
 import SearchOptions from '../Components/SearchOptions'
 import SpecialityGrid from '../Components/SpecilaityGrid'
+import TestimonialGrid from '../Components/TestimonialGrid'
  import Toolbar from '../Components/Toolbar'
 
 
@@ -31,16 +32,11 @@ function HomeScreen(props) {
         });
     }
 
-	
-
 
 	return (
 		<>
 		{/* <Toolbar navigation={props.navigation}/> */}
-		<View style={{alignItems:'center'}}>
-		
-		
-		
+		<View style={{alignItems:'center'}}>		
 		<ScrollView style={styles.container} showsVerticalScrollIndicator={false}  showsHorizontalScrollIndicator={false}>
 		{/* <Navbar /> */}
 		<View style={{display:"flex",flexDirection:'column'}}>
@@ -76,7 +72,7 @@ function HomeScreen(props) {
 		<Text style={styles.h6  }>Book appointments from home</Text>
 		<HospitalGrid navigation={props.navigation} />
 		</View>
-		
+		<TestimonialGrid />
 		</View>
 		</ScrollView>
 		</View>
@@ -90,10 +86,13 @@ const styles=StyleSheet.create({
 		marginVertical:10
     },
     h3:{fontSize:18,
-    fontWeight:'bold'},
+    fontWeight:'bold',
+	paddingLeft:10
+},
     h6:{
         fontSize:14,
-        fontWeight:'600'
+        fontWeight:'600',
+		paddingLeft:10
     }
 })
 
