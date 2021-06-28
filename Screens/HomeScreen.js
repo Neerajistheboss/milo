@@ -3,6 +3,7 @@ import { Text, TextInput, View ,StyleSheet,SafeAreaView,ScrollView, AsyncStorage
 import HospitalGrid from '../Components/HospitalGrid'
 import SearchOptions from '../Components/SearchOptions'
 import SpecialityGrid from '../Components/SpecilaityGrid'
+import TestimonialGrid from '../Components/TestimonialGrid'
  import Toolbar from '../Components/Toolbar'
 
 
@@ -30,33 +31,6 @@ function HomeScreen(props) {
             DOCTOR_ID:docId
         });
     }
-
-
-	// const requestCameraPermission = async () => {
-	// 	try {
-	// 	  const granted = await PermissionsAndroid.request(
-	// 		PermissionsAndroid.PERMISSIONS.CAMERA,
-	// 		{
-	// 		  title: "Cool Photo App Camera Permission",
-	// 		  message:
-	// 			"Cool Photo App needs access to your camera " +
-	// 			"so you can take awesome pictures.",
-	// 		  buttonNeutral: "Ask Me Later",
-	// 		  buttonNegative: "Cancel",
-	// 		  buttonPositive: "OK"
-	// 		}
-	// 	  );
-	// 	  if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-	// 		props.navigation.navigate('VideoCall')
-	// 		// navigation.navigate('VideoCall')
-	// 	  } else {
-	// 		console.log("Camera permission denied");
-	// 	  }
-	// 	} catch (err) {
-	// 	  console.warn(err);
-	// 	}
-	//   };
-	
 
 
 	return (
@@ -98,7 +72,7 @@ function HomeScreen(props) {
 		<Text style={styles.h6  }>Book appointments from home</Text>
 		<HospitalGrid navigation={props.navigation} />
 		</View>
-		
+		<TestimonialGrid />
 		</View>
 		</ScrollView>
 		</View>
@@ -112,10 +86,13 @@ const styles=StyleSheet.create({
 		marginVertical:10
     },
     h3:{fontSize:18,
-    fontWeight:'bold'},
+    fontWeight:'bold',
+	paddingLeft:10
+},
     h6:{
         fontSize:14,
-        fontWeight:'600'
+        fontWeight:'600',
+		paddingLeft:10
     }
 })
 

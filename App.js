@@ -13,9 +13,22 @@ import FormikLoginScreen from './Screens/FormikLoginScreen';
 import RegisterFormikScreen from './Screens/RegisterFormikScreen';
 import { AsyncStorage } from 'react-native';
 import { useContext } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+
 
 export default function App() {
-    
+  useEffect(() => {
+
+
+  const loadSplashScreen =async() =>{
+    await SplashScreen.preventAutoHideAsync();
+    setTimeout(() =>{
+
+      SplashScreen.hideAsync();
+    },2000)
+  }
+  loadSplashScreen()
+  },[])
   return (
     <AppContextProvider>
     {/* <RegisterFormikScreen /> */}

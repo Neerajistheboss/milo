@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.milo.app'
+        applicationId 'milo.apk'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -185,6 +185,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-vector-icons')
     implementation project(':react-native-razorpay')
     compile project(':react-native-twilio-video-webrtc')
     implementation fileTree(dir: "libs", include: ["*.jar"])
