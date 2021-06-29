@@ -1,4 +1,4 @@
-package milo.apk;
+package io.yu.medic;
 
 import android.os.Bundle;
 

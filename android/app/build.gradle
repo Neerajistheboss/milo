@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'milo.apk'
+        applicationId 'io.yu.medic'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

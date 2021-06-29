@@ -1,4 +1,4 @@
-package milo.apk.generated;
+package io.yu.medic.generated;
 
 import java.util.Arrays;
 import java.util.List;
