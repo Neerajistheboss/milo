@@ -162,7 +162,8 @@ const BookingScreen=({route,navigation})=>{
    
 	function displayRazorpay() {
 		var options = {
-		  key: "rzp_test_pnLwxm5qF9vlbs",
+		 // key: "rzp_test_pnLwxm5qF9vlbs",
+		  key: "rzp_live_A8fHsK5kq7rgBv",
 		  currency: "INR",
 		  amount: ((parseInt(docData?.doc?.FEES) + 25) * 100).toString(),
 		  name: "YuMedic",

@@ -5,6 +5,7 @@ import SearchOptions from '../Components/SearchOptions'
 import SpecialityGrid from '../Components/SpecilaityGrid'
 import TestimonialGrid from '../Components/TestimonialGrid'
  import Toolbar from '../Components/Toolbar'
+ import BannerSlider from '../Components/BannerSlider';
 
 
 function HomeScreen(props) {
@@ -13,7 +14,16 @@ function HomeScreen(props) {
 		setSearch(e.target.value)
 	}
 
-
+	const sliderImages = [
+		{
+		  id: 1,
+		  image: require("../assets/Artboard–2.png"),
+		},
+		{
+		  id: 2,
+		  image: require("../assets/Artboard–3.png"),
+		},
+	  ];
 
 	const handBookNow=async(shopId,docId)=>{
 		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=doctor_details&DOCTOR_ID=${docId}`
@@ -60,8 +70,10 @@ function HomeScreen(props) {
 		{/* <DocCarousel  bookNow={handBookNow}/> */}
 		{/* <PsychologistCarousel bookNow={handBookNow}/> */}
 
+		<BannerSlider slider={sliderImages}/>
+
         
-		<View style={{marginBottom:30}}>
+		<View style={{marginBottom:30,marginTop:10}}>
 		<Text style={styles.h3}>Find Doctor by Speciality</Text>
 		<Text style={styles.h6}>Book appointments from home</Text>
 		
@@ -92,7 +104,8 @@ const styles=StyleSheet.create({
     h6:{
         fontSize:14,
         fontWeight:'600',
-		paddingLeft:10
+		paddingLeft:10,
+		marginBottom:10
     }
 })
 

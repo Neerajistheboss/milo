@@ -13,7 +13,7 @@ const ContactScreen=()=>{
                 <View style={styles.titleBox}><Text style={styles.title}>Contact Us</Text></View>
                 <View style={styles.infoBox}>
                     <Ionicons style={styles.icon} name="call"  size={16} color='gray'/>
-                    <Text style={styles.detail}>9472751360</Text>
+                    <Text style={styles.detail}>9821003060</Text>
                 </View>
                 <View style={styles.infoBox}>
                     <Ionicons style={styles.icon} name="mail" size={16} color='gray' />
