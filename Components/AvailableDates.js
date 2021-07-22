@@ -4,7 +4,7 @@ import NewDate from './NewDate'
 const AvailableDates=(props)=>{
     return(
         <View style={styles.availableDates} >
-            <Text style={{fontWeight:'bold'}}>Available Dates</Text>
+            <Text style={{fontWeight:'bold',color:'#000'}}>Available Dates</Text>
         <ScrollView horizontal={true} style={{display:'flex',flexDirection:'row'}}>
             {props.slots.map((slot,index)=><NewDate selectedDayOrder={props.day} setSelectedDayOrder={props.setDay} WEEKDAY={slot.WEEKDAY} index={index}/>)}
         </ScrollView>

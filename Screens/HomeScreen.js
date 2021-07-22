@@ -74,7 +74,7 @@ function HomeScreen(props) {
 
         
 		<View style={{marginBottom:30,marginTop:10}}>
-		<Text style={styles.h3}>Find Doctor by Speciality</Text>
+		<Text style={{...styles.h3,color:'#000'}}>Find Doctor by Speciality</Text>
 		<Text style={styles.h6}>Book appointments from home</Text>
 		
 		<SpecialityGrid navigation={props.navigation} />
@@ -95,7 +95,8 @@ function HomeScreen(props) {
 const styles=StyleSheet.create({
     container: {
         flexGrow: 1,
-		marginVertical:10
+		marginVertical:10,
+		backgroundColor:'#FFF'
     },
     h3:{fontSize:18,
     fontWeight:'bold',

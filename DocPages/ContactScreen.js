@@ -1,15 +1,37 @@
 import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView,View, Text,StyleSheet, Dimensions, TextInput, Button } from 'react-native'
+import { ScrollView,View, Text,StyleSheet, Dimensions, TextInput, Button } from 'react-native'
+import axios from 'axios';
 const ContactScreen=()=>{
     const [name,setName]=useState('')
     const [phone,setPhone]=useState('')
     const [email,setEmail]=useState('')
     const [message,setMessage]=useState('')
+    const [messageSent,setMessageSent]=useState(0)
+    
+    let [btnText,setBtnText]=useState('Send')
+    let [btnColor,setBtnColor]=useState("#7EE2D6")
+
+    const handleMessageSubmit=()=>{
+        if(messageSent==1) return
+        axios.post(`https://server.yumedic.com:5000/api/v1/messages`,messageData)
+			  .then(response =>{
+				  if(response.status===201)
+				  {
+						setMessageSent(1)
+                        setBtnText('Message Sent')
+                        setBtnColor('#65b5ab')
+				  }
+				  else setMessageSent(2)
+                  setBtnText('Try Again')
+                  setBtnColor('#F56D66')
+			  })
+    }
 
     return(
-        <SafeAreaView style={styles.container}>
-            <View style={styles.card}>
+        <View style={{alignItems:'center',flex:1,justifyContent:'center'}}>
+
+            <ScrollView style={styles.card}  showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                 <View style={styles.titleBox}><Text style={styles.title}>Contact Us</Text></View>
                 <View style={styles.infoBox}>
                     <Ionicons style={styles.icon} name="call"  size={16} color='gray'/>
@@ -26,8 +48,8 @@ const ContactScreen=()=>{
 
                 <View style={{...styles.titleBox,marginTop:25,marginBottom:5}}><Text style={styles.title}>Make a enquiry here</Text></View>
                 <View style={styles.inputBox}>
-                    <Text>Name</Text>
-                    <TextInput style={styles.input} value={name} onChangeText={text=>setName(text)}/>
+                    <Text style={{margin:0}}>Name</Text>
+                    <TextInput style={{...styles.input,margin:0,height:20,padding:0}} value={name} onChangeText={text=>setName(text)}/>
                 </View>
                 <View style={styles.inputBox}>
                     <Text>Phone</Text>
@@ -39,36 +61,28 @@ const ContactScreen=()=>{
                 </View>
                 <View style={styles.inputBox}>
                     <Text>Your Message</Text>
-                    <TextInput style={styles.input} value={message} onChangeText={text=>setMessage(text)} multiline = {true} numberOfLines = {6}/>
+                    <TextInput style={styles.input} value={message} onChangeText={text=>setMessage(text)} multiline = {true} numberOfLines = {5}/>
                 </View>
                <View style={styles.buttonContainer}>
                <Button
-                 onPress={()=>{}}
-                 title='Send'
-                 color="#7EE2D6"
-                />
+                 onPress={handleMessageSubmit}
+                 title={btnText}
+                 color={btnColor}
+                 />
                </View>
-            </View>
-        </SafeAreaView>
+            </ScrollView>
+                 </View>
     )
 }
 
 const styles=StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        padding:10,
-        paddingVertical:30
-    },
     card:{
-        flex:1,
         borderRadius:5,
         borderColor:'#CCC',
         borderWidth:1,
-        alignItems:'center',
         width:Dimensions.get('window').width*0.9,
-        paddingVertical:10
+        padding:10,
+        marginVertical:10
     },
     titleBox:{
         width:'90%',
@@ -101,10 +115,13 @@ const styles=StyleSheet.create({
     ,
     input:{
         borderBottomWidth:1,
-        borderBottomColor:'gray'
+        borderBottomColor:'gray',
+        margin:0,
+        height:20,
+        padding:0
     },
     buttonContainer:{
-        margin:20
+        margin:10
     }
 
 })

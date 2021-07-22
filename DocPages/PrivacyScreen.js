@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ScrollView,Text } from 'react-native'
-import { AppContext } from '../context/auth-context'
 const PrivacyScreen = () => {
 	return (
-		<ScrollView className="text-justify px-1 pt-3">
+		<ScrollView>
 			<Text>Privacy Policy</Text>
 			<Text>
             The terms “We” / “Us” / “Our”/”Company” individually and
@@ -108,8 +107,7 @@ verification of identity, or for the prevention, detection, investigation
 including cyber incidents, or for prosecution and punishment of
 offences. These disclosures are made in good faith and belief that
 such disclosure is reasonably necessary for enforcing these Terms;
-for complying with the applicable laws and regulations.
-				<br/>
+for complying with the applicable laws and regulations.</Text><Text>
                 (b) We proposes to share such information within its group
 companies and officers and employees of such group companies
 for the purpose of processing personal information on its behalf. We also ensure that these recipients of such information agree to
@@ -126,7 +124,8 @@ collection, storage and processing practices and security measures,
 including appropriate encryption and physical security measures to
 guard against unauthorized access to systems where we store
 personal data.
-<br/>
+</Text>
+<Text>
 All information gathered on our Website is securely stored within
 our controlled database. The database is stored on servers
 secured behind a firewall; access to the servers is
@@ -149,21 +148,28 @@ regards to content and or comment or breach of these terms shall
 be immediately informed to the designated Grievance Officer as
 mentioned below via in writing or through email signed with the
 electronic signature to
-<br/>
+</Text>
+            <Text>
 …………………………….. (“Grievance
 Officer”).
-<br/>
+</Text>
+            <Text>
 Mr. Krishna Kumar Mehta (Grievance Officer)
-<br/>
+</Text>
+            <Text>
 www.milodoctor.com
-<br/>
+</Text>
+            <Text>
 Company Name & Address – YuMedic ( BIT SINDRI ,DHANBAD
 JHARKHAND)
-<br/>
+</Text>
+            <Text>
 Email: info@yumedic.com
-<br/>
+</Text>
+            <Text>
 Ph: 8580024009
-<br/>
+</Text>
+            <Text>
 Care for loved ones
             </Text>
 		</ScrollView>

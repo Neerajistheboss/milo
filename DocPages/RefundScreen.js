@@ -1,10 +1,9 @@
-import React, { useContext,useEffect } from 'react'
-import { ScrollView } from 'react-native'
-import { AppContext } from '../context/auth-context'
+import React from 'react'
+import { ScrollView,Text } from 'react-native'
 const RefundScreen = () => {
 	
 	return (
-		<ScrollView className="text-justify px-1 pt-3">
+		<ScrollView>
 			<Text>Refund and Cancellation Policy</Text>
 			<Text>
 				Our focus is complete customer satisfaction. In the event, if you are

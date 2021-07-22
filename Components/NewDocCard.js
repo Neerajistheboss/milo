@@ -1,9 +1,8 @@
 import React from 'react'
 import { useContext } from 'react'
-import { Button,Image, Text, View,TouchableOpacity, Dimensions } from 'react-native'
+import { Button,Image, Text, View,TouchableOpacity, Dimensions,AsyncStorage } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { AppContext } from '../context/auth-context'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const NewDocCard=(props)=>{
     const appData=useContext(AppContext)    

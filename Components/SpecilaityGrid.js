@@ -9,31 +9,65 @@ const [specialities,setSpecialities]=useState([])
 useEffect(()=>{
     fetch('https://admin.milodoctor.com/mobileapi/mobapi.php?f=servicelistbycat&catid=3')
         .then(response=>response.json())
-        .then(data=>{setSpecialities(data.results)})
+        .then(data=>{
+            const cc={
+                "SRVCAT_ID": "3",
+                "SERVICE_ID": "Covid Consultation",
+                "SERVICE_TITLE": "Covid Consultation",
+                "SERVICE_ICON": "https://i.ibb.co/dQPBG67/cc.png",
+                "SERVICE_IMAGE": "https://i.ibb.co/dQPBG67/cc.png",
+                "SERVICE_DESCRIPTION": "Covid Consultation",
+                "SERVICE_FOR": "All",
+                "STATUS": "1",
+                "type":"new"
+            }
+            const mh={
+                "SRVCAT_ID": "3",
+                "SERVICE_ID": "Mental Health",
+                "SERVICE_TITLE": "Mental Health",
+                "SERVICE_ICON": "https://i.ibb.co/D9FjcVJ/mh.png",
+                "SERVICE_IMAGE": "https://i.ibb.co/D9FjcVJ/mh.png",
+                "SERVICE_DESCRIPTION": "Mental Health",
+                "SERVICE_FOR": "All",
+                "STATUS": "1",
+                "type":"new"
+            }
+            const oc={
+                "SRVCAT_ID": "3",
+                "SERVICE_ID": "Oncology",
+                "SERVICE_TITLE": "Oncology",
+                "SERVICE_ICON": "https://i.ibb.co/CMJNhmL/oc.png",
+                "SERVICE_IMAGE": "https://i.ibb.co/CMJNhmL/oc.png",
+                "SERVICE_DESCRIPTION": "Oncology",
+                "SERVICE_FOR": "All",
+                "STATUS": "1",
+                "type":"new"
+            }
+            setSpecialities([cc,mh,...data.results,oc])
+            console.log(data.results)
+        })
 },[])
 
-// const handleSpecialitySelect=(sid)=>{
-   
-// 		history.push({
-// 			pathname: '/speciality',
-// 			search: `SERVICE_ID=${sid}&uuid=42&CITY=dhanbad`
-// 		});
-// 	}
 
-const specialitySelected=(sid)=>{
-    
-    navigation.navigate('SpecialitySelect',{
-        sid:sid
+const handleSpecialitySelected=(item)=>{
+if(item.type=='new'){
+    navigation.navigate('NewSpecialitySelect',{
+        sid:item.SERVICE_ID
     })
-
+}
+else {
+    navigation.navigate('SpecialitySelect',{
+        sid:item.SERVICE_ID
+    })
 }
 
+}
 
 return(
     <View style={{alignItems:'center'}}>
         <FlatList numColumns={3} showsVerticalScrollIndicator={false} columnWrapperStyle={styles.row} data={specialities} keyExtractor={item => item.SERVICE_ID} renderItem={({item})=>{
-        return <TouchableOpacity style={styles.specialityCard} onPress={()=>specialitySelected(item.SERVICE_ID)}>
-            <Image source={{uri:item.SERVICE_IMAGE}} style={{width:50,height:50, borderRadius:50}} alt='service' />
+        return <TouchableOpacity style={styles.specialityCard} onPress={()=>handleSpecialitySelected(item)}>
+            <Image source={{uri:item.SERVICE_IMAGE}} style={{width:50,height:50, borderRadius:50,resizeMode:'contain'}} alt='service' />
             <Text style={styles.title}>{item.SERVICE_TITLE}</Text>
         </TouchableOpacity>}} />
         </View>

@@ -11,25 +11,25 @@ const Form =(props)=>{
 
     return(
         <View style={styles.card}>
-            <Ionicons name={"time"} size={14}  />
+            <Ionicons color='#000' name={"time"} size={14}  />
             <View style={styles.inputBox}>
-                <Text>Paitent Name*</Text>
+                <Text style={{color:'#000'}}>Paitent Name*</Text>
                 <TextInput value={props.patientName} onChangeText={text=>props.setPatienName(text)} />
             </View>
             <View style={styles.inputBox}>
-                <Text>Mobile*</Text>
+                <Text style={{color:'#000'}}>Mobile*</Text>
                 <TextInput  value={props.phone} onChangeText={text=>props.setPhone(text)} keyboardType='phone-pad'/>
             </View>
             <View style={styles.inputBox}>
-                <Text>Address</Text>
+                <Text style={{color:'#000'}}>Address</Text>
                 <TextInput value={props.address} onChangeText={text=>props.setAddress(text)} />
             </View>
             <View style={styles.inputBox}>                                                              
-                <Text>Visit Reason</Text>
+                <Text style={{color:'#000'}}>Visit Reason</Text>
                 <TextInput value={props.reason} onChangeText={text=>props.setReason(text)} />
             </View>
             <View style={styles.inputBox}>
-                <Text>Notes(optional)</Text>
+                <Text style={{color:'#000'}}>Notes(optional)</Text>
                 <TextInput value={props.notes} onChangeText={text=>props.setNotes(text)} />
             </View>
         </View>

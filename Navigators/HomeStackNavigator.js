@@ -8,6 +8,7 @@ import HospitalScreen from '../Screens/HospitalScreen'
 import SearchScreen from '../Screens/SearchScreen'
 import VideoCallScreen from '../Screens/VideoCallScreen'
 import { Ionicons } from '@expo/vector-icons'
+import NewSpecialitySelectScreen from '../Screens/NewSpecialityScreen'
 const Stack=createStackNavigator()
 
 const HomeStackNavigator=({navigation})=>{
@@ -16,6 +17,7 @@ const HomeStackNavigator=({navigation})=>{
             <Stack.Screen name='Home' component={HomeScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
             <Stack.Screen name='Search' component={SearchScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
             <Stack.Screen name='SpecialitySelect' component={SpecialityScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
+            <Stack.Screen name='NewSpecialitySelect' component={NewSpecialitySelectScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
             <Stack.Screen name='HospitalSelect' component={HospitalScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
             <Stack.Screen name='booking' component={BookingScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
         </Stack.Navigator>

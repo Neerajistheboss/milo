@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
-import { ScrollView, Text, View } from 'react-native'
-import { AppContext } from '../context/auth-context'
+import React from 'react'
+import { ScrollView, Text } from 'react-native'
 const TermsScreen = () => {
 	return (
 		<ScrollView>

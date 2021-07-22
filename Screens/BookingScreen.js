@@ -3,13 +3,13 @@ import axios from 'axios'
 import { AppContext } from '../context/auth-context'
 import Form from '../Components/Form'
 import ReactDOM from 'react-dom'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Dimensions, Text,Image, View, Button } from 'react-native'
+import { Dimensions, Text,Image, View, Button,AsyncStorage } from 'react-native'
 import RazorpayCheckout from 'react-native-razorpay';
 import NewDateAndTimeSlotHolder from '../Components/NewDateAndTimeSlotHolder.js'
 import { ScrollView } from 'react-native-gesture-handler'
 import moment from 'moment'
 import { NavigationActions, StackActions } from 'react-navigation'
+import Coupon from '../Components/Coupon'
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement('script')
@@ -41,9 +41,12 @@ const BookingScreen=({route,navigation})=>{
     const [address,setAddress]=useState('')
     const [reason,setReason]=useState('')
     const [notes,setNotes]=useState('')
+    const [couponCode,setCouponCode]=useState()
+    const [couponMessage,setCouponMessage]=useState('')
     
-    
-    
+	const [bookingDone,setBookingDone]=useState(false)
+
+
    useEffect(() => {
 	if(patientName!=''&&phone!='')
     {                                                           
@@ -55,6 +58,10 @@ const BookingScreen=({route,navigation})=>{
 	//form states
 
 
+	
+	const [ihc,setihc]=useState(49)
+	const [discount,setDiscount]=useState(0)
+
 
     useEffect(() => {
 		appData.setValueFunc('docId',route.params.DOCTOR_ID)
@@ -62,7 +69,16 @@ const BookingScreen=({route,navigation})=>{
 		
 	},[route.params.DOCTOR_ID])
 
-
+	useEffect(()=>{
+		const fee=parseInt((docData?.doc?.FEES))
+		if(fee==0)
+		{
+			setihc(0)
+			setDiscount(0)
+		}
+		
+	},[docData])
+	
 	
 
     const makeBooking=async()=>{
@@ -83,7 +99,7 @@ const BookingScreen=({route,navigation})=>{
         formData.append('MOBILE_NO',phone)
         formData.append('ADDRESS',address)
         formData.append('USER_ID',userId||'406')
-        formData.append('SUM',parseInt(docData?.doc?.FEES)+25)
+        formData.append('SUM',parseInt(docData?.doc?.FEES)+ihc-discount)
         formData.append('USERNAME',username||'Guest')
 		
 		
@@ -110,7 +126,7 @@ const BookingScreen=({route,navigation})=>{
 			  .post(`https://admin.milodoctor.com/mobileapi/mobapi.php?f=confirm_booking`,bodypament)
 			  .then(async(response)=>{
 				  if(response.data.MSG=="Booking has been confirmed now.")           //booking has been confirmed i.e. success 
-				  {
+				  { setBookingDone(true)
 					//if success history.push() to success page
 					//saving booking data to AsyncStorage
 					// const bookings=JSON.parse(AsyncStorage.getItem('bookings'))||[]
@@ -143,20 +159,10 @@ const BookingScreen=({route,navigation})=>{
 				}
 			  })
 
-
-
-
-
-			  
-			  
-			  const handleBookingFailed=()=>{
+				const handleBookingFailed=()=>{
 		
             }
-        
-        
-           
-                
-    }
+        }
 
 
    
@@ -165,7 +171,7 @@ const BookingScreen=({route,navigation})=>{
 		 // key: "rzp_test_pnLwxm5qF9vlbs",
 		  key: "rzp_live_A8fHsK5kq7rgBv",
 		  currency: "INR",
-		  amount: ((parseInt(docData?.doc?.FEES) + 25) * 100).toString(),
+		  amount: ((parseInt((docData?.doc?.FEES))+ihc-discount)*100).toString(),
 		  name: "YuMedic",
 	
 		  description: "Pls complete the payment for booking",
@@ -222,8 +228,8 @@ const BookingScreen=({route,navigation})=>{
 	}, [])
     
     return(
-        <View style={{flex: 1}}>
-		<ScrollView>
+        <View style={{flex: 1,justifyContent:'space-between'}}>
+		<ScrollView >
 			
 			
 			{/* <DT timeFunction={1timeSelected} docId={doctorSelected.docId} /> */}
@@ -233,14 +239,16 @@ const BookingScreen=({route,navigation})=>{
 				{`Bookin Details For ${docData?.doc?.NAME}`}
 			</h3> */}
 
-			 <View style={{flexDirection:'row',marginTop:10}}>
+			 <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'flex-start'}}>
+				 <View style={{flexDirection:'row',marginHorizontal:10,alignItems:'center'}}>
                     <Image source={{uri:'https://i.ibb.co/P4WYMnD/doctor.png'}} style={{width:75,height:75,borderWidth:1,borderRadius:100}} />
-					<View>
-						<Text style={{padding:5}}>{docData?.doc?.NAME}</Text>
-                    	<Text style={{padding:5}}>{docData?.doc?.DISEASES}</Text>
-                    	<Text style={{padding:5}}>{docData?.doc?.EDUCATION}</Text>
-                    	<Text style={{padding:5}}>{docData?.doc?.EXPERIENCE} Years exp</Text>
+					<View style={{marginLeft:10,marginRight:50}}>
+						<Text style={{padding:5,color:'#000'}}>{docData?.doc?.NAME}</Text>
+                    	<Text style={{padding:5,color:'#000'}}>{docData?.doc?.DISEASES}</Text>
+                    	<Text style={{padding:5,color:'#000'}}>{docData?.doc?.EDUCATION}</Text>
+                    	<Text style={{padding:5,color:'#000'}}>{docData?.doc?.EXPERIENCE} Years exp</Text>
 					</View>
+				 </View>
                     <Text style={{padding:5,color:"green",fontSize:18}}>Rs{docData?.doc?.FEES}</Text>
             </View>
 
@@ -263,39 +271,34 @@ const BookingScreen=({route,navigation})=>{
 				reason={reason}
 				setReason={setReason}
 				notes={notes}
-				setNotes={setNotes}
+				setNotes={setNotes} 
 			  />
 
+				{docData?.doc?.FEES>0 &&<Coupon phone={phone} setDiscount={setDiscount} bookingDone={bookingDone}/>		}	
 			<View style={{borderBottomWidth:1}}></View>
-			<View>
-				<Text>Payement Details</Text>
+			<View style={{flex:1,margin:10}}>
+				<Text style={{fontWeight:'bold',color:'#000'}}>Payement Details</Text>
 				<View style={{flexDirection:'row',justifyContent:'space-between'}}>
-					<Text>Appointment Fee</Text>
-                     <Text>₹{docData?.doc?.FEES}</Text>
+					<Text style={{color:'#000'}}>Appointment Fee</Text>
+                     <Text style={{color:'#000'}}>₹{docData?.doc?.FEES}</Text>
 				</View>
 				<View style={{flexDirection:'row',justifyContent:'space-between'}}>
-					<Text>Service Charge</Text>
-					<Text>0</Text>
+					<Text style={{color:'#000'}}>MiloDoctor Discount</Text>
+					<Text style={{color:'#00C6AD',fontWeight:'bold'}}>-₹{discount}</Text>
 				</View>
 				<View style={{flexDirection:'row',justifyContent:'space-between'}}>
-					<Text>Discount</Text>
-					<Text>0</Text>
+					<Text style={{color:'#000'}}>Internet Handling Charge + Service Charges</Text>
+					<Text style={{color:'#000'}}>₹{ihc}</Text>
 				</View>
-				<View style={{flexDirection:'row',justifyContent:'space-between'}}>
-					<Text>Internet Handling Charge</Text>
-					<Text>₹25</Text>
-				</View>
-				<View style={{flexDirection:'row',justifyContent:'space-between'}}>
-					<Text>Total </Text>
-					<Text>₹ {parseInt(docData?.doc?.FEES) + 25}</Text>
+				<View style={{flexDirection:'row',justifyContent:'space-between',fontWeight:'bold'}}>
+					<Text style={{color:'#000'}}>Total </Text>
+					<Text style={{color:'#000'}}>{`₹${parseInt(docData?.doc?.FEES) + ihc-discount}`}</Text>
 				</View>
 			</View>
 			<View style={{borderBottomWidth:1}}></View>
-			<View style={{display:'flex',flexDirection:'row',justifyContent:'space-around',alignItems:'center',backgroundColor:'#bbf6ff',height:75,padding:10,position:'absolute',left:0,bottom:0,width:Dimensions.get('window').width}}>
-                <Text style={{fontWeight:'bold',margin:10,color:'black'}}>Rs{parseInt(docData?.doc?.FEES)+25}</Text>
-                <View style={{fontWeight:'bold',margin:10,backgroundColor:"#14cebe",color:'#FFF',padding:10}}>
-					<Button onPress={displayRazorpay}   title={btnText} />
-				</View>
+			<View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',backgroundColor:'#bbf6ff',height:75,padding:10,width:Dimensions.get('window').width}}>
+                <Text style={{fontWeight:'bold',margin:10,color:'black'}}>{`₹${parseInt(docData?.doc?.FEES) + ihc-discount}`}</Text>
+					<Button color='#14cebe' onPress={displayRazorpay}   title={btnText} />
             </View>
 			{/* {!formCompleted&&<h3>Fill the form to continue</h3>} */}
 		</ScrollView>
