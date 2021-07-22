@@ -66,7 +66,7 @@ const RegisterFormikScreen=({navigation})=>{
             onSubmit={values=>register(values,setMsg,appData)}
             validationSchema={validationSchema}
         >
-            {({handleChange,handleSubmit,values,errors}) =>(
+            {({handleChange,handleSubmit,values,errors,setFieldTouched,touched}) =>(
                 <>  
                 
                     <View style={{alignItems: 'flex-start'}}>
@@ -74,14 +74,14 @@ const RegisterFormikScreen=({navigation})=>{
                     <Text style={{color:'#008A80'}}>Name</Text>
                     <TextInput style={[styles.inputs,styles.rounded]} value={values.phone} value={values.name} placeholder='Name' placeholderTextColor={'#008A80'} onChangeText={handleChange('name')} /> 
                     <Text style={{color:'#008A80'}}>Phone</Text>
-                    <TextInput style={[styles.inputs,styles.rounded]} value={values.phone} value={values.phone} placeholder='Phone' placeholderTextColor={'#008A80'} onChangeText={handleChange('phone')} /> 
-                    <Text style={{color:'red'}}>{errors.phone}</Text>
+                    <TextInput onBlur={()=>setFieldTouched('phone')} style={[styles.inputs,styles.rounded]} value={values.phone} value={values.phone} placeholder='Phone' placeholderTextColor={'#008A80'} onChangeText={handleChange('phone')} /> 
+                    {touched.phone&&<Text style={{color:'red'}}>{errors.phone}</Text>}
                     <Text style={{color:'#008A80'}}>Password</Text>
-                    <TextInput style={[styles.inputs,styles.rounded]} secureTextEntry value={values.phone} value={values.password} placeholder='Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('password')}/>
-                    <Text style={{color:'red'}}>{errors.password}</Text>
+                    <TextInput onBlur={()=>setFieldTouched('password')} style={[styles.inputs,styles.rounded]} secureTextEntry value={values.phone} value={values.password} placeholder='Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('password')}/>
+                   { touched.password&&<Text style={{color:'red'}}>{errors.password}</Text>}
                     <Text style={{color:'#008A80'}}>Confirm Password</Text>
-                    <TextInput style={[styles.inputs,styles.rounded]} secureTextEntry value={values.phone} value={values.confirmPassword} placeholder='Confirm Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('confirmPassword')}/>
-                    <Text style={{color:'red'}}>{errors.confirmPassword}</Text>
+                    <TextInput onBlur={()=>setFieldTouched('confirmPassword')} style={[styles.inputs,styles.rounded]} secureTextEntry value={values.phone} value={values.confirmPassword} placeholder='Confirm Password' placeholderTextColor={'#008A80'} onChangeText={handleChange('confirmPassword')}/>
+                    {touched.confirmPassword&&<Text style={{color:'red'}}>{errors.confirmPassword}</Text>}
                     <TouchableOpacity onPress={handleSubmit} style={[styles.inputs,styles.rounded,{backgroundColor:'#008A80',borderColor:'#008A80',padding:10,alignItems:'center'}]}>
                       
                       <Text style={{color:'#FFF',fontSize:18}}>Register</Text>
