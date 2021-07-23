@@ -4,54 +4,69 @@ import moment from 'moment'
 
 
 const Appointment=({booking,navigation})=>{
+    console.log('booking')
+    console.log(booking)
 const [cardColorState,setCardColorState]=useState('gray')
     
 
+
+const cardClassFunc=(bookingDate,bookingTime)=>{
+        
+    // const bookingD=moment(bookingDate,'dddd Do MMM YYYY').format('YYYY-MM-DD')
+    const bookingD=moment(bookingDate).format('YYYY-MM-DD')
+    
+    const today=moment().format('YYYY-MM-DD')
+    
+    const isSameOrAfterDate=moment(bookingD).isSameOrAfter(today)
+    const isSameDate=moment(bookingD).isSame(today)
+    
+    console.log('isSameDate',isSameDate)
+    console.log('isSameOrAfterDate',isSameOrAfterDate)
+    //checking time
+    
+    
+    const time=moment()
+    
+    const beforeTime=moment(bookingTime,'LT')
+    
+    const afterTime=moment(moment(bookingTime,'LT').add(15,'minutes'),'LT')
+    
+    const isbetweenTime=time.isSameOrAfter(beforeTime)&&time.isSameOrBefore(afterTime)
+    
+    const isAfterTime=time.isAfter(afterTime)
+    console.log('isAfterTime',isAfterTime)
+    console.log('isbetweenTime',isbetweenTime)
+let cardColor='gray'
+if(isSameDate&&isbetweenTime) cardColor='green'
+else if(isSameOrAfterDate&&!isAfterTime) cardColor='orange'
+
+setCardColorState(cardColor)
+
+
+
+
+}
+
+
 useEffect(() => {
+    let cardTimeOut
 cardClassFunc(booking.date,booking.time)
 const timeNow=moment()
 let appTime=moment(`${booking.date} ${booking.time}`,'YYYY-MM-DD hh:mm A')
+
+
 const timeToWait=appTime.diff(timeNow)
 if(timeToWait>=0){
    
-    setTimeout(()=>cardClassFunc(booking.date,booking.time),timeToWait)
+   cardTimeOut= setTimeout(()=>cardClassFunc(booking.date,booking.time),timeToWait)
 }
+return ()=>clearTimeout(cardTimeOut)
 },[])
 
-    const cardClassFunc=(bookingDate,bookingTime)=>{
-        
-		// const bookingD=moment(bookingDate,'dddd Do MMM YYYY').format('YYYY-MM-DD')
-		const bookingD=moment(bookingDate).format('YYYY-MM-DD')
-        
-		const today=moment().format('YYYY-MM-DD')
-        
-		const isSameOrAfterDate=moment(bookingD).isSameOrAfter(today)
-        
-		
-		//checking time
-		
-        
-        const time=moment()
-        
-        const beforeTime=moment(bookingTime,'LT')
-        
-        const afterTime=moment(moment(bookingTime,'LT').add(15,'minutes'),'LT')
-        
-        const isbetweenTime=time.isSameOrAfter(beforeTime)&&time.isSameOrBefore(afterTime)
-        
-        const isAfterTime=time.isAfter(afterTime)
-        
-	let cardColor='gray'
-	if(isSameOrAfterDate) cardColor='orange'
-	if(isSameOrAfterDate&&isbetweenTime) cardColor='green'
-	if(isSameOrAfterDate&&isAfterTime) cardColor='gray'
-
-    setCardColorState(cardColor)
 
 
 
-
-}
+ 
 
 
 

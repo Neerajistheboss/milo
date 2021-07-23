@@ -3,7 +3,7 @@ import axios from 'axios'
 import { AppContext } from '../context/auth-context'
 import Form from '../Components/Form'
 import ReactDOM from 'react-dom'
-import { Dimensions, Text,Image, View, Button,AsyncStorage } from 'react-native'
+import { Dimensions, Text,Image, View, Button,AsyncStorage, Pressable } from 'react-native'
 import RazorpayCheckout from 'react-native-razorpay';
 import NewDateAndTimeSlotHolder from '../Components/NewDateAndTimeSlotHolder.js'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -48,12 +48,13 @@ const BookingScreen=({route,navigation})=>{
 
 
    useEffect(() => {
-	if(patientName!=''&&phone!='')
+	   if(!timeSlotId) setBtnText('Select Time Slot')
+	else if(patientName!=''&&phone!='')
     {                                                           
         setBtnText('Pay')
     }
     else setBtnText('Fill Details')
-   },[patientName,phone])
+   },[patientName,phone,timeSlotId])
 
 	//form states
 
@@ -185,19 +186,10 @@ const BookingScreen=({route,navigation})=>{
 			  navigation.navigate("fail");
 			}
 		  },
-	
-		  // prefill: {
-		  //     contact: '8434782113',
-		  //     name: 'Guest'
-		  // },
 		  theme: {
 			color: "#01f0d0",
 		  },
-		  // modal: {
-		  //     ondismiss: function() {
-	
-		  //     }
-		  // }
+		  
 		};
 	
 		RazorpayCheckout.open(options)
@@ -226,6 +218,12 @@ const BookingScreen=({route,navigation})=>{
 			setDocData({doc:response.data.DOCTOR,slots:response.data.results})
 		})
 	}, [])
+
+
+	const handlePayClick=()=>{
+		if(btnText=='Pay') displayRazorpay()
+		
+	}
     
     return(
         <View style={{flex: 1,justifyContent:'space-between'}}>
@@ -296,9 +294,9 @@ const BookingScreen=({route,navigation})=>{
 				</View>
 			</View>
 			<View style={{borderBottomWidth:1}}></View>
-			<View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',backgroundColor:'#bbf6ff',height:75,padding:10,width:Dimensions.get('window').width}}>
-                <Text style={{fontWeight:'bold',margin:10,color:'black'}}>{`₹${parseInt(docData?.doc?.FEES) + ihc-discount}`}</Text>
-					<Button color='#14cebe' onPress={displayRazorpay}   title={btnText} />
+			<View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',backgroundColor:'#bbf6ff',width:Dimensions.get('window').width}}>
+                <Text style={{fontWeight:'bold',margin:10,color:'#000',fontSize:24,textAlign:'center',flex:0.5}}>{`₹${parseInt(docData?.doc?.FEES) + ihc-discount}`}</Text>
+					<Pressable style={{backgroundColor:'#14cebe',height:50,flex:0.5,alignItems:'center',justifyContent:'center'}} onPress={handlePayClick}><Text style={{color:'#FFF',fontSize:24,fontWeight:'bold'}}>{btnText}</Text></Pressable>
             </View>
 			{/* {!formCompleted&&<h3>Fill the form to continue</h3>} */}
 		</ScrollView>

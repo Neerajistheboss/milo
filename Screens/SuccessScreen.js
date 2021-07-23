@@ -11,36 +11,11 @@ const SuccessScreen = ({navigation}) => {
 
 	AsyncStorage.getItem('user').then(user=>setUserId(JSON.parse(user).USER_ID))
 
-
-	const cardClassFunc=(bookingDate,bookingTime)=>{
-		// const bookingD=moment(bookingDate,'dddd Do MMM YYYY').format('YYYY-MM-DD')
-		const bookingD=moment(bookingDate).format('YYYY-MM-DD')
-		const today=moment().format('YYYY-MM-DD')
-		const isSameOrAfterDate=moment(bookingD).isSameOrAfter(today)
-		
-		//checking time
-		
-
-	const time=moment()
-	const beforeTime=moment(bookingTime,'LT')
-	const afterTime=moment(moment(bookingTime,'LT').add(15,'minutes'),'LT')
-	const isbetweenTime=time.isSameOrAfter(beforeTime)&&time.isSameOrBefore(afterTime)
-	const isAfterTime=time.isAfter(afterTime)
-
-	let cardColor='bg-secondary'
-	if(isSameOrAfterDate) cardColor='bg-warning'
-	if(isSameOrAfterDate&&isbetweenTime) cardColor='bg-success'
-	if(isSameOrAfterDate&&isAfterTime) cardColor='bg-secondary'
-
-		return  cardColor
-	}
 	useEffect(() => {
-		console.log(userId)
 		if(userId)
 		axios.get(`https://server.yumedic.com:5000/api/v1/appointments/user/${userId}`)
 			 .then(response =>{
 				 setBookings(response.data.appointments)
-				 console.log(response.data.appointments)
 			 })
 	},[userId])
 
@@ -50,7 +25,6 @@ const SuccessScreen = ({navigation}) => {
 		<ScrollView className='text-center' contentContainerStyle={{alignItems: 'center'}}>
 			<Text style={{textAlign: 'center'}}>Booking List</Text>
 			{bookings?.map(booking=>{
-					const cardClass=cardClassFunc(booking.date,booking.time)
 					return <Appointment booking={booking} navigation={navigation}/>
 					
 					

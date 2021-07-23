@@ -65,7 +65,7 @@ const getDocShopDetails=(doc)=>{
 		<ScrollView style={{flex:1}}>
 			{doctors.length > 0 ? (
 				doctors.map((doctor) => (
-					<View className='col-12 col-md-6 col-lg-4' >
+					<View >
 						<NewDoctorCard doc={doctor}  bookNow={()=>handBookNow(doctor.DOCTOR_ID)}/>
 					</View>
 				))
