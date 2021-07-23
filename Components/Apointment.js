@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react'
 import { Text, View ,TouchableOpacity, Alert} from 'react-native'
 import moment from 'moment'
 
-
 const Appointment=({booking,navigation})=>{
     console.log('booking')
     console.log(booking)
@@ -17,11 +16,11 @@ const cardClassFunc=(bookingDate,bookingTime)=>{
     
     const today=moment().format('YYYY-MM-DD')
     
-    const isSameOrAfterDate=moment(bookingD).isSameOrAfter(today)
+    // const isSameOrAfterDate=moment(bookingD).isSameOrAfter(today)
     const isSameDate=moment(bookingD).isSame(today)
-    
+    const isAfterDate=moment(bookingD).isAfter(today)
     console.log('isSameDate',isSameDate)
-    console.log('isSameOrAfterDate',isSameOrAfterDate)
+    // console.log('isSameOrAfterDate',isSameOrAfterDate)
     //checking time
     
     
@@ -38,7 +37,8 @@ const cardClassFunc=(bookingDate,bookingTime)=>{
     console.log('isbetweenTime',isbetweenTime)
 let cardColor='gray'
 if(isSameDate&&isbetweenTime) cardColor='green'
-else if(isSameOrAfterDate&&!isAfterTime) cardColor='orange'
+else if((isSameDate&&!isAfterTime)||isAfterDate) cardColor='orange'
+
 
 setCardColorState(cardColor)
 

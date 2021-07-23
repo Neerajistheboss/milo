@@ -3,6 +3,7 @@ import React,{useEffect,useState} from 'react'
 import axios from 'axios' 
 import { View,ScrollView, Text,AsyncStorage } from 'react-native'
 import Appointment from '../Components/Apointment'
+import _ from 'lodash'
 
 const SuccessScreen = ({navigation}) => {
 
@@ -15,7 +16,7 @@ const SuccessScreen = ({navigation}) => {
 		if(userId)
 		axios.get(`https://server.yumedic.com:5000/api/v1/appointments/user/${userId}`)
 			 .then(response =>{
-				 setBookings(response.data.appointments)
+				 setBookings(_.orderBy(response.data.appointments,['createdAt'],['desc']))
 			 })
 	},[userId])
 
