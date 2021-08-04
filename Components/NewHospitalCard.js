@@ -12,7 +12,7 @@ const NewHospitalCard=(props)=>{
                 </View>
            </View>
                
-            <Text style={{width:'80%',backgroundColor:"#12ad99",color:'white',border:0,borderRadius:5,padding:5,margin:0}}>View Details</Text>
+            <Text style={{width:'80%',backgroundColor:"#12ad99",color:'white',borderRadius:5,padding:5,margin:0}}>View Details</Text>
             </TouchableOpacity>
             
     )

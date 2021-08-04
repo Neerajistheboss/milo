@@ -60,7 +60,7 @@ const SearchScreen = ({route,navigation}) => {
 			{doctorsAndShops.length > 0 ? (
 				doctorsAndShops.map((doctorOrShop) => (
 					<View>
-						{doctorOrShop.SHOP_ID?<NewHospitalCard hosp={doctorOrShop} clickHandler={()=>handleHospClick(doctorOrShop.SHOP_ID)}/>:<NewDocCard doc={doctorOrShop}  bookNow={()=>handBookNow(doctorOrShop.DOCTOR_ID)}/>}
+						{doctorOrShop.SHOP_ID?<NewHospitalCard hosp={doctorOrShop} clickHandler={()=>handleHospClick(doctorOrShop.SHOP_ID)}/>:<NewDocCard doc={doctorOrShop}  bookNow={()=>handBookNow(doctorOrShop?.DOCTOR_ID)}/>}
 					</View>
 				))
 			) : (

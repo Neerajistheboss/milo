@@ -1,6 +1,6 @@
 import React, { useContext, useState,useEffect } from 'react'
 import { Ionicons,FontAwesome5 } from '@expo/vector-icons';
-import { StyleSheet,TouchableHighlight , View,Text, Dimensions, Image, Button,Alert, AsyncStorage, Modal } from 'react-native'
+import { StyleSheet,TouchableHighlight , View,Text, Dimensions, Image, Button,Alert, AsyncStorage, Modal, Pressable } from 'react-native'
 import { AppContext } from '../context/auth-context';
 import EditProfileModal from '../Components/EditProfileModal';
 const ProfileScreen=({navigation})=>{
@@ -11,31 +11,32 @@ const ProfileScreen=({navigation})=>{
     const [userName,setuserName]=useState()
     const [userAge,setuserAge]=useState()
     const [userPhone,setuserPhone]=useState()
-    
     const [showModal,setShowModal]=useState(false)
+
+   
 
     useEffect(() => {
         AsyncStorage.getItem('userInfo').then((userInfo=>{
-            console.log('userInfo',userInfo)
             const user=JSON.parse(userInfo)
-            setUserImage(user.photo)
+            console.log(user)
+            setUserImage(user?.photo||'https://i.ibb.co/BjK753H/78-785827-user-profile-avatar-login-account-male-user-icon.png')
             setuserName(user.name)
             setuserAge(user.age)
             setuserPhone(user.phone)
             
-            
-        
         }))
     },[showModal])
 
     
-    
+    const handleEdit=()=>{
+        setShowModal(true)
+    }
 
 
     return(
         <View style={styles.container}>
-            <Ionicons onPress={()=>setShowModal(true)} name='create-sharp' size={18} color='#008A80'  style={{alignSelf:'flex-end'}}/>
-            <Text onPress={()=>setShowModal(true)} style={{alignSelf:'flex-end',color:'#008A80'}}>Edit</Text>
+            <Ionicons onPress={handleEdit} name='create-sharp' size={18} color='#008A80'  style={{alignSelf:'flex-end'}}/>
+            <Text onPress={handleEdit} style={{alignSelf:'flex-end',color:'#008A80'}}>Edit</Text>
             <View style={styles.userImgHolder}>
             <Image source={{uri:userImage}} style={{width:120,height:120}} />
             </View>
@@ -45,6 +46,7 @@ const ProfileScreen=({navigation})=>{
             <TouchableHighlight underlayColor='#4dada6' onPress={()=>{navigation.navigate('Appointments')}}  style={styles.buttonHolder}>
             <Text style={styles.button}>Check Bookings</Text>
             </TouchableHighlight>
+            
             <Modal
                 animationType="slide"
                 visible={showModal}
@@ -96,10 +98,3 @@ const styles=StyleSheet.create({
 })
 
 export default ProfileScreen
-
-
-{/* <TouchableOpacity onPress={()=>{navigation.navigate('Appointments')}}  style={styles.infoBox}>
-                    <Ionicons style={styles.icon} name="reader-outline"  size={16} color='gray'/>
-                    <Text style={styles.detail}>Appointments</Text>
-                    <Text style={styles.arrow}>></Text>
-                </TouchableOpacity > */}

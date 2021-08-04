@@ -43,12 +43,12 @@ const HospitalPage=({route,navigation})=>{
 
            {hospitalData.SHOP_IMAGE&& <Image source={{uri:hospitalData?.SHOP_IMAGE[0]?.BIG_FILE}} style={{width:Dimensions.get('window').width,height:200,resizeMode:'contain'}} />}
            <Text >{hospitalData?.TITLE}</Text>
-           <Text>Open Time:{hospitalData.WORKING_TIME}</Text>
-           <Text>{hospitalData.ADDRESS}</Text>
+           <Text>Open Time:{hospitalData?.WORKING_TIME}</Text>
+           <Text>{hospitalData?.ADDRESS}</Text>
            
            
            
-           {hospitalData.DOCTORS&&hospitalData.DOCTORS.map(doc=><View className='col-12 col-md-6 col-lg-4'><NewDocCard addDr doc={doc} bookNow={()=>handBookNow(doc.DOCTOR_ID)}/></View>)}
+           {hospitalData.DOCTORS&&hospitalData.DOCTORS.map(doc=><View className='col-12 col-md-6 col-lg-4'><NewDocCard addDr doc={doc} bookNow={()=>handBookNow(doc?.DOCTOR_ID)}/></View>)}
            </View>
         </ScrollView>
 

@@ -6,7 +6,6 @@ const Coupon=({setDiscount,bookingDone,phone})=>{
     const [couponCode,setCouponCode]=useState('')
     const [couponMessage,setCouponMessage]=useState('')
     const checkCouponValidity=()=>{
-        console.log('checking')
         if(validCouponCodes.includes(couponCode))   //coupon is valid
         {
             setDiscount(10)

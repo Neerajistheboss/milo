@@ -35,14 +35,11 @@ const VideoCallScreen = ({navigation,route}) => {
     
     axios.get(`https://server.yumedic.com:5000/api/v1/videocalls/user/${route.params.docId}/${appData.values.userId}`)
     .then(response=>{
-      console.log(response.data.accessToken)
       setToken(response.data.accessToken)
     })
   },[])
 
 
-
-  console.log(status)
   const _onConnectButtonPress = () => {
     twilioRef.current.connect({ 
       roomName:'cool room',
@@ -65,25 +62,21 @@ const VideoCallScreen = ({navigation,route}) => {
   };
 
   const _onRoomDidConnect = ({roomName, error}) => {
-    console.log('onRoomDidConnect: ', roomName);
 
     setStatus('connected');
   };
 
   const _onRoomDidDisconnect = ({ roomName, error }) => {
-    console.log('[Disconnect]ERROR: ', error);
 
     setStatus('disconnected');
   };
 
   const _onRoomDidFailToConnect = error => {
-    console.log('[FailToConnect]ERROR: ', error);
 
     setStatus('disconnected');
   };
 
   const _onParticipantAddedVideoTrack = ({ participant, track }) => {
-    console.log('onParticipantAddedVideoTrack: ', participant, track);
 
     setVideoTracks(
       new Map([
@@ -97,7 +90,6 @@ const VideoCallScreen = ({navigation,route}) => {
   };
 
   const _onParticipantRemovedVideoTrack = ({ participant, track }) => {
-    console.log('onParticipantRemovedVideoTrack: ', participant, track);
 
     const videoTracksLocal = videoTracks;
     videoTracksLocal.delete(track.trackSid);

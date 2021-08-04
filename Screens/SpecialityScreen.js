@@ -47,7 +47,7 @@ const SpecialityScreen=({route,navigation})=>{
     
     return(
  <View>
-         <FlatList  showsVerticalScrollIndicator={false}  data={doctors} keyExtractor={item => item.DOCTOR_ID} renderItem={(item)=>{
+         <FlatList  showsVerticalScrollIndicator={false}  data={doctors} keyExtractor={item => item?.DOCTOR_ID} renderItem={(item)=>{
             
             return <NewDoctorCard doc={item.item} bookNow={handBookNow}/>} }/> 
  </View>

@@ -65,10 +65,10 @@ const BookingScreen=({route,navigation})=>{
 
 
     useEffect(() => {
-		appData.setValueFunc('docId',route.params.DOCTOR_ID)
-		 AsyncStorage.setItem('docId',route.params.DOCTOR_ID)
+		appData.setValueFunc('docId',route?.params?.DOCTOR_ID)
+		 AsyncStorage.setItem('docId',route?.params?.DOCTOR_ID)
 		
-	},[route.params.DOCTOR_ID])
+	},[route?.params?.DOCTOR_ID])
 
 	useEffect(()=>{
 		const fee=parseInt((docData?.doc?.FEES))
@@ -90,10 +90,10 @@ const BookingScreen=({route,navigation})=>{
 		// const username=JSON.parse(await AsyncStorage.getItem('user')||'').USER_FULLNAME
 		const username='USER_FULLNAME'
         let formData=new FormData()
-        formData.append('WEEKDAY',docData?.slots[selectedDayOrder].WEEKDAY)
+        formData.append('WEEKDAY',docData?.slots[selectedDayOrder]?.WEEKDAY)
         formData.append('SLOT_ID',timeSlotId)
         formData.append('AP_FOR','M')
-        formData.append('DOCTOR_ID',docData.doc.DOCTOR_ID)
+        formData.append('DOCTOR_ID',docData?.doc?.DOCTOR_ID)
         formData.append('VISIT_REASON',reason)
         formData.append('NOTES',notes)
         formData.append('NAME',patientName)
@@ -212,7 +212,7 @@ const BookingScreen=({route,navigation})=>{
 			
 			
 
-		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=checkdocavailability&SHOP_ID=${route.params.SHOP_ID}&DOCTOR_ID=${route.params.DOCTOR_ID}`
+		let queryStr = `https://admin.milodoctor.com/mobileapi/mobapi.php?f=checkdocavailability&SHOP_ID=${route?.params?.SHOP_ID}&DOCTOR_ID=${route?.params?.DOCTOR_ID}`
 		axios.get(`${queryStr}`).then(function (response) {
 			
 			setDocData({doc:response.data.DOCTOR,slots:response.data.results})

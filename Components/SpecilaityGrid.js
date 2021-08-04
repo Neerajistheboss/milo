@@ -44,7 +44,6 @@ useEffect(()=>{
                 "type":"new"
             }
             setSpecialities([cc,mh,...data.results,oc])
-            console.log(data.results)
         })
 },[])
 

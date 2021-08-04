@@ -1,16 +1,35 @@
 import React, { useContext, useState } from 'react'
 import { Ionicons,FontAwesome5 } from '@expo/vector-icons';
-import { StyleSheet, Text, View,TouchableHighlight,Image, TextInput, Dimensions, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, View,TouchableHighlight,Image, TextInput, Dimensions, AsyncStorage,Modal } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import {Formik} from 'formik'
 import { AppContext } from '../context/auth-context';
+import CameraGalleryChooseModal from './CameraGalleryChooseModal';
+import { useEffect } from 'react/cjs/react.development';
+
+
+
 const EditProfileModal=({setShowModal,photo,name,age,phone})=>{
-const [userImage,setUserImage] = useState(photo)
+
+    const [userImage,setUserImage] = useState(photo)
     const appData=useContext(AppContext)
+    
+    const [optionSelected,setOptionSelected]=useState(null)
+    const [showCameraGalleryOptionModal,setShowCameraGalleryOptionModal]=useState(false)
+
+  
+
+
 
     const picImage=async()=>{
-        const image=await ImagePicker.launchCameraAsync({aspect:[1,1],quality:0.5})
+        if(optionSelected==null) return
+        let image
+        if(optionSelected==='CAMERA')
+        image=await ImagePicker.launchCameraAsync({aspect:[1,1],quality:0.5})
+        else if(optionSelected==='GALLERY') 
+        image=await ImagePicker.launchImageLibraryAsync({mediaTypes:ImagePicker.MediaTypeOptions.Images,aspect:[1,1],quality:0.5})
         setUserImage(image.uri)
+        setOptionSelected(null)
         
 
     }
@@ -20,29 +39,50 @@ const [userImage,setUserImage] = useState(photo)
         appData.setValueFunc('userPhone',phone)
         appData.setValueFunc('userAge',age)
         const photoString=userImage.toString()
-        console.log(photoString)
-       await AsyncStorage.setItem('userInfo',JSON.stringify({name,phone,age,"photo":userImage}))
+        try {
+            
+            await AsyncStorage.setItem('userInfo',JSON.stringify({name,phone,age,"photo":userImage}))
+        } catch (error) {
+            console.log(error)
+        }
        setShowModal(false)
     }
+
+    const handleOptionSelected=(option)=>{
+        setOptionSelected(option)
+        setShowCameraGalleryOptionModal(false)
+        
+    }
+
+
+    useEffect(()=>{
+        picImage()
+    },[
+        optionSelected
+    ])
+
+
+
 
     return(
         
        
         
+        <View style={{...styles.container,paddingTop:0}}>
 
         <Formik 
             initialValues={{name:name,phone:phone,age:age}}
             onSubmit={({name,phone,age})=>saveChanges(name,phone,age)}
-        >
+            >
             {({handleChange,handleSubmit,values}) =>(
                 
-                <View style={[ styles.container]} >
+                <View style={styles.container} >
                     
                     <View>
                         <View style={styles.userImgHolder}>
                             <Image source={{uri:userImage}} style={{width:120,height:120}} />
                         </View>
-                            <Ionicons onPress={picImage} name='camera-outline' size={26} style={{alignSelf:'flex-end',position:'absolute',bottom:0,right:0}}/>
+                            <Ionicons onPress={()=>setShowCameraGalleryOptionModal(true)} name='camera-outline' size={26} style={{alignSelf:'flex-end',position:'absolute',bottom:0,right:0}}/>
                     </View>
                     
                     <View style={[styles.fieldHolder,{marginTop:50}]}>
@@ -62,17 +102,24 @@ const [userImage,setUserImage] = useState(photo)
                     </View>
             )}
         </Formik>
+        <Modal 
+                animationType='slide' transparent={true}
+                visible={showCameraGalleryOptionModal} 
+                onRequestClose={()=>setShowCameraGalleryOptionModal(false)}>
+                    <CameraGalleryChooseModal handleOptionSelected={handleOptionSelected} setShowCameraGalleryOptionModal={setShowCameraGalleryOptionModal}/>
+              </Modal>
+</View>
     )
 
 }
 
 const styles=StyleSheet.create({
-container: {
-    flex: 1,
-    alignItems:'center',
-    paddingTop:50,
-    backgroundColor:'#FFF'
-},
+    container: {
+        flex: 1,
+        alignItems:'center',
+        paddingTop:50,
+        backgroundColor:'#FFF'
+    },
 userImgHolder:{
     width:120,
     height:120,

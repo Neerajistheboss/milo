@@ -37,8 +37,6 @@ const login=async(values,setMsg,appData,navigation)=>{
                                         {
                                             setMsg("Login Sucess")
                                             AsyncStorage.setItem('user',JSON.stringify(response.data.results))
-                                            console.log('user',JSON.stringify(response.data.results))
-                                            console.log(appData)
                                             appData.setValueFunc('USER_ID',response.data.results.USER_ID)
                                             navigation.navigate('Home')
                                             

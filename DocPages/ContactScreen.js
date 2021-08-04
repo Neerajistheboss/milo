@@ -12,6 +12,13 @@ const ContactScreen=()=>{
     let [btnText,setBtnText]=useState('Send')
     let [btnColor,setBtnColor]=useState("#7EE2D6")
 
+    const resetFields=()=>{
+        setName('')
+        setPhone('')
+        setEmail('')
+        setMessage('')
+    }
+
     const handleMessageSubmit=()=>{
         if(messageSent==1) return
         axios.post(`https://server.yumedic.com:5000/api/v1/messages`,{name,phone,email,message})
@@ -21,6 +28,7 @@ const ContactScreen=()=>{
 						setMessageSent(1)
                         setBtnText('Message Sent')
                         setBtnColor('#65b5ab')
+                        resetFields()
 				  }
 				  else {setMessageSent(2)
                   setBtnText('Try Again Later')

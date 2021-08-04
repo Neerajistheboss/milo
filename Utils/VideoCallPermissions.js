@@ -22,7 +22,6 @@ import { PermissionsAndroid} from 'react-native';
 			// navigation.navigate('VideoCall')
             setCamPermission(true);
 		  } else {
-			console.log("Camera permission denied");
 		  }
 		} catch (err) {
 		  console.warn(err);
@@ -49,7 +48,6 @@ import { PermissionsAndroid} from 'react-native';
 			// navigation.navigate('VideoCall')
             setMicPermission(true)
 		  } else {
-			console.log("Camera permission denied");
 		  }
 		} catch (err) {
 		  console.warn(err);

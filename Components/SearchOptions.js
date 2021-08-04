@@ -7,7 +7,6 @@ const SearchOptions = ({navigation}) => {
 	
 
 	const searchBtnClicked=()=>{
-		console.log(search)  
 		 navigation.navigate('Search',{
 		 	search: search
 
