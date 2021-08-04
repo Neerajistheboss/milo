@@ -136,8 +136,8 @@ android {
         applicationId 'io.yu.medic'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20302
-        versionName "2.9"
+        versionCode 20303
+        versionName "3.0"
     }
     splits {
         abi {
