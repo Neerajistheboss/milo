@@ -48,7 +48,7 @@ const NewDocCard=(props)=>{
                     <Text  style={{fontSize:10,marginBottom:3}}>{props.doc?.EXPERIENCE||2}yrs exp.</Text>
                     <Text style={{textAlign:'justify',maxWidth:Dimensions.get('window').width*0.55}}>Timing {props.doc?.DOC_TIME}</Text>
                     
-                    <Text><Ionicons name={"location"} size={14}  />{props?.doc?.ADDRESS||"Dhanbad"}</Text>
+                    <Text><Ionicons name={"location"} size={14}  />{props?.doc?.ADDRESS||props?.doc?.LOCATION}</Text>
                 </View>
             </View>
             <View style={{width:'80%',alignSelf:'center',borderRadius:100,overflow:'hidden'}}><Button title='Book Now' onPress={handleDocSelected} style={{width:'80%',backgroundColor:"#12ad99",color:'white',borderRadius:5,padding:5,margin:0}} /></View>

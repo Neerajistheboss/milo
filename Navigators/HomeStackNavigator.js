@@ -9,11 +9,17 @@ import SearchScreen from '../Screens/SearchScreen'
 import VideoCallScreen from '../Screens/VideoCallScreen'
 import { Ionicons } from '@expo/vector-icons'
 import NewSpecialitySelectScreen from '../Screens/NewSpecialityScreen'
+import CitySelector from '../Components/CitySelector'
 const Stack=createStackNavigator()
 
 const HomeStackNavigator=({navigation})=>{
     return(
-        <Stack.Navigator  initialRouteName="Home" screenOptions={{headerLeft:()=><Ionicons name='menu-sharp' color='#FFF' size={28} style={{margin:10}} onPress={()=>navigation.toggleDrawer()} />}}>
+        <Stack.Navigator  initialRouteName="Home" screenOptions={{
+                    headerLeft:()=><Ionicons name='menu-sharp' color='#FFF' size={28} style={{margin:10}} onPress={()=>navigation.toggleDrawer()} />,
+                    headerRight:()=><CitySelector />
+                    
+                }}
+                    >
             <Stack.Screen name='Home' component={HomeScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
             <Stack.Screen name='Search' component={SearchScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
             <Stack.Screen name='SpecialitySelect' component={SpecialityScreen} options={{title: 'MiloDoctor',headerStyle: {backgroundColor: '#01d8bb'},headerTintColor: '#fff'}} />
