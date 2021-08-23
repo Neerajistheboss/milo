@@ -1,8 +1,9 @@
 import React, { useContext, useState,useEffect } from 'react'
 import { Ionicons,FontAwesome5 } from '@expo/vector-icons';
-import { StyleSheet,TouchableHighlight , View,Text, Dimensions, Image, Button,Alert, AsyncStorage, Modal, Pressable } from 'react-native'
+import { StyleSheet,TouchableHighlight , View,Text, Dimensions, Image, Button,Alert, AsyncStorage, Modal, Pressable,ScrollView } from 'react-native'
 import { AppContext } from '../context/auth-context';
 import EditProfileModal from '../Components/EditProfileModal';
+import axios from 'axios';
 const ProfileScreen=({navigation})=>{
     const appData=useContext(AppContext)
 
@@ -11,7 +12,12 @@ const ProfileScreen=({navigation})=>{
     const [userName,setuserName]=useState()
     const [userAge,setuserAge]=useState()
     const [userPhone,setuserPhone]=useState()
+    const [userBloodGroup,setuserBloodGroup]=useState()
+    const [userAddress,setuserAddress]=useState()
     const [showModal,setShowModal]=useState(false)
+
+
+
 
    
 
@@ -23,6 +29,8 @@ const ProfileScreen=({navigation})=>{
             setuserName(user.name)
             setuserAge(user.age)
             setuserPhone(user.phone)
+            setuserBloodGroup(user.bloodGroup)
+            setuserAddress(user.address)
             
         }))
     },[showModal])
@@ -31,6 +39,20 @@ const ProfileScreen=({navigation})=>{
     const handleEdit=()=>{
         setShowModal(true)
     }
+
+    // appointment list section
+    let [userId,setUserId]=useState(null)
+	const [bookings,setBookings]=useState([])
+
+	AsyncStorage.getItem('user').then(user=>setUserId(JSON.parse(user).USER_ID))
+
+	useEffect(() => {
+		if(userId)
+		axios.get(`https://server.yumedic.com:5000/api/v1/appointments/user/${userId}`)
+			 .then(response =>{
+				 setBookings(_.orderBy(response.data.appointments,['createdAt'],['desc']))
+			 })
+	},[userId])
 
 
     return(
@@ -43,9 +65,22 @@ const ProfileScreen=({navigation})=>{
             <Text style={styles.userName}>{userName}</Text>
             <Text >Age:{userAge}</Text>
             <Text >Phone:{userPhone}</Text>
-            <TouchableHighlight underlayColor='#4dada6' onPress={()=>{navigation.navigate('Appointments')}}  style={styles.buttonHolder}>
-            <Text style={styles.button}>Check Bookings</Text>
-            </TouchableHighlight>
+            <Text>Blood Group:{userBloodGroup}</Text>
+            <Text>Address:{userAddress}</Text>
+            <View style={{width:Dimensions.get('window').width*0.9,borderBottomWidth:1,borderColor:'#008A80',marginVertical:15,backgroundColor:'#008A80'}}/>
+
+            <ScrollView className='text-center' contentContainerStyle={{alignItems: 'center'}}>
+			<Text style={{textAlign: 'center',fontSize:18}}>Booking List</Text>
+			{bookings?.map(booking=>{
+					return <Appointment booking={booking} navigation={navigation}/>
+					
+					
+
+			})}
+			{bookings?.length==0&&<Text>No Bookings Yet</Text>}
+			{bookings==null&&<Text>No Bookings Yet</Text>}
+			
+		</ScrollView>
             
             <Modal
                 animationType="slide"
@@ -53,7 +88,7 @@ const ProfileScreen=({navigation})=>{
                 onRequestClose={() =>setShowModal(false)}>
 
 
-       <EditProfileModal setShowModal={setShowModal} name={userName} age={userAge} phone={userPhone} photo={userImage} />
+       <EditProfileModal setShowModal={setShowModal} name={userName} age={userAge} phone={userPhone} photo={userImage} bloodGroup={userBloodGroup} address={userAddress}/>
       </Modal>
 
         </View>
