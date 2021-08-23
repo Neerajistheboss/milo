@@ -6,10 +6,11 @@ import {Formik} from 'formik'
 import { AppContext } from '../context/auth-context';
 import CameraGalleryChooseModal from './CameraGalleryChooseModal';
 import { useEffect } from 'react/cjs/react.development';
+import axios from 'axios';
 
 
 
-const EditProfileModal=({setShowModal,photo,name,age,phone})=>{
+const EditProfileModal=({setShowModal,photo,name,age,phone,bloodGroup,address})=>{
 
     const [userImage,setUserImage] = useState(photo)
     const appData=useContext(AppContext)
@@ -34,14 +35,18 @@ const EditProfileModal=({setShowModal,photo,name,age,phone})=>{
 
     }
 
-    const saveChanges=async(name,phone,age)=>{
+    const saveChanges=async(name,phone,age,bloodGroup,address)=>{
         appData.setValueFunc('userName',name)
         appData.setValueFunc('userPhone',phone)
         appData.setValueFunc('userAge',age)
+        appData.setValueFunc('userBloodGroup',bloodGroup)
+        appData.setValueFunc('userAddress',address)
         const photoString=userImage.toString()
         try {
             
-            await AsyncStorage.setItem('userInfo',JSON.stringify({name,phone,age,"photo":userImage}))
+            await AsyncStorage.setItem('userInfo',JSON.stringify({name,phone,age,bloodGroup,address,"photo":userImage}))
+            axios.post('https://server.yumedic.com:5000/api/v1/userDetails',{name,phone,age,bloodGroup,address})
+                 
         } catch (error) {
             console.log(error)
         }
@@ -71,8 +76,8 @@ const EditProfileModal=({setShowModal,photo,name,age,phone})=>{
         <View style={{...styles.container,paddingTop:0}}>
 
         <Formik 
-            initialValues={{name:name,phone:phone,age:age}}
-            onSubmit={({name,phone,age})=>saveChanges(name,phone,age)}
+            initialValues={{name:name,phone:phone,age:age,bloodGroup:bloodGroup,address:address}}
+            onSubmit={({name,phone,age,bloodGroup,address})=>saveChanges(name,phone,age,bloodGroup,address)}
             >
             {({handleChange,handleSubmit,values}) =>(
                 
@@ -97,6 +102,14 @@ const EditProfileModal=({setShowModal,photo,name,age,phone})=>{
                     <View style={styles.fieldHolder}>
                     <Text style={styles.field}>Age</Text>
                     <TextInput style={[styles.input,styles.rounded]} value={values.age}  placeholder='Age' placeholderTextColor={'#000'} onChangeText={handleChange('age')}/>
+                    </View>
+                    <View style={styles.fieldHolder}>
+                    <Text style={styles.field}>Blood Group</Text>
+                    <TextInput style={[styles.input,styles.rounded]} value={values.bloodGroup}  placeholder='Blood Group' placeholderTextColor={'#000'} onChangeText={handleChange('bloodGroup')}/>
+                    </View>
+                    <View style={styles.fieldHolder}>
+                    <Text style={styles.field}>Address</Text>
+                    <TextInput style={[styles.input,styles.rounded]} value={values.address}  placeholder='Address' placeholderTextColor={'#000'} onChangeText={handleChange('address')}/>
                     </View>
                     <Text onPress={handleSubmit} style={styles.save}>Save</Text>
                     </View>
