@@ -26,7 +26,9 @@ export const AppContextProvider = ({ children }) => {
 		docId: null,
 		hospitalId: null,
 		cost: null,
-		city:"Dhanbad"
+		city:"Dhanbad",
+		userBloodGroup:'',
+		
 	}
 
 
