@@ -25,6 +25,7 @@ const ProfileScreen=({navigation})=>{
         AsyncStorage.getItem('userInfo').then((userInfo=>{
             const user=JSON.parse(userInfo)
             setUserImage(user?.photo||'https://i.ibb.co/BjK753H/78-785827-user-profile-avatar-login-account-male-user-icon.png')
+
             setuserName(user?.name)
             setuserAge(user?.age)
             setuserPhone(user?.phone)
@@ -49,7 +50,7 @@ const ProfileScreen=({navigation})=>{
 		if(userId)
 		axios.get(`https://server.yumedic.com:5000/api/v1/appointments/user/${userId}`)
 			 .then(response =>{
-				 setBookings(_.orderBy(response?.data?.appointments,['createdAt'],['desc']))
+				 setBookings(_.orderBy(response.data?.appointments,['createdAt'],['desc']))
 			 })
 	},[userId])
 
